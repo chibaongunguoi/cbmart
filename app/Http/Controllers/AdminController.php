@@ -10,6 +10,6 @@ class AdminController extends Controller
     function index()
     {
         // return "home";
-        return Inertia::render('Home');
+        return Inertia::render('Admin/Home');
     }
 }

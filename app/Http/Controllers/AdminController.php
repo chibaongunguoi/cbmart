@@ -12,4 +12,5 @@ class AdminController extends Controller
         // return "home";
         return Inertia::render('Admin/Home');
     }
+    
 }

@@ -2,17 +2,19 @@ import "../../../../css/AdminPage.css"
 import React from "react";
 import Layout from "./../Layout/Layout";
 import Pagination from "../Layout/Pagination";
-export default function Home({users,count,request,page,record_per_page}){
-    console.log(request)
+import { route } from "../../../helper/helper";
+import { record_show_per_page,message } from "../../../../../config/config";
+export default function Home({users,count,request,page,mess}){
   return (
  <Layout>
-  <UserList users={users} count={count} request={request} page={page} record_per_page={record_per_page}/>
+  <UserList users={users} count={count} request={request} page={page}mess={mess} />
   </Layout>);
 }
-function UserList({users,count,request,page,record_per_page}){
-    let pageTotal=parseInt( count.user/record_per_page);
+function UserList({users,count,request,page,mess}){
+    let pageTotal=parseInt( count.user/record_show_per_page);
   return (<div id="content" class="container-fluid">
     <div class="card">
+    {mess?<div class="alert alert-success">{message[mess]}</div>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Danh sách thành viên</h5>
             <form action="" method="GET" class='row row-cols-lg-auto g-3 align-items-center'>
@@ -71,9 +73,9 @@ function UserList({users,count,request,page,record_per_page}){
                             </td>
                             <td>{user.created_at}</td>
                             <td>
-                                <a href="route('edit.user',['user'$userid])" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a href={route("admin/user/edit?id="+user.id)} class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
                                 {/* @if (Auth::id()!=$userid) */}
-                                <a href="route('delete.user',['user'$userid])" onclick="return confirm('Bạn có chắc chắn xóa bản ghi này?')" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                <a href={route("admin/user/delete?id="+user.id)} onclick="return confirm('Bạn có chắc chắn xóa bản ghi này?')" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
 
                                 {/* @endif */}
                             </td>

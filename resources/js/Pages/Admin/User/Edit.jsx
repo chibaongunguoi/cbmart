@@ -1,37 +1,29 @@
 import React from "react";
-import Layout from "./../Layout/Layout";
+import Layout from "../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
 import { useState,useEffect } from "react";
-export default function Home(){
+export default function Home({user}){
   return (
  <Layout>
-  <UserAdd />
+  <UserUpdate user={user}/>
   </Layout>);
 }
-function UserAdd(){
+function UserUpdate({user}){
+    console.log(user);
     const { errors } = usePage().props
     let [stateForm,setStateForm]=useState("edit");
     let [status,setStatus]=useState(null);
     let [form ,setForm]=useState({
-        'name':"",
-        'username':"",
-        'email':"",
-        'password':"",
-        'password_confirmation':"",
-    })
+        'name':user.name,
+        'email':user.email,
+})
     useEffect(()=>{
         if ((stateForm=="submit") && (!Object.keys(errors).length))
             {
+                console.log(1);
               setStatus(<div class="alert alert-success">Thêm người dùng thành công</div>);
             setStateForm("edit");
-            setForm({
-                'name':"",
-                'username':"",
-                'email':"",
-                'password':"",
-                'password_confirmation':"",
-            });
             }
     },[errors]);
     
@@ -42,14 +34,14 @@ function UserAdd(){
         e.preventDefault();
         setStateForm("submit");
         setStatus(null);
-        router.post(route("admin/user/store"), form);
+        router.post(route("admin/user/update?id="+user.id), form);
       }
     
   return (<div id="content" class="container-fluid">
     <div class="card">
         {status}
         <div class="card-header font-weight-bold">
-            Thêm người dùng
+            Chỉnh sửa thông tin người dùng
         </div>
         <div class="card-body">
             <form  onSubmit={handleSubmit} method="POST">
@@ -60,26 +52,9 @@ function UserAdd(){
                     {errors.name && <small className="text-danger">{errors.name}</small>}
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input value={form.username}class="form-control" type="text" name="username" id="username"onChange={handleChange}/>
-                    {errors.username && <small className="text-danger">{errors.username}</small>}
-                </div>
-                <div class="form-group">
                     <label for="email">Email</label>
                     <input value={form.email}class="form-control" type="text" name="email" id="email"onChange={handleChange}/>
                     {errors.email && <small className="text-danger">{errors.email}</small>}
-                </div>
-                <div class="form-group">
-                    <label for="password">Mật khẩu</label>
-                    <input value={form.password}class="form-control" type="password" name="password" id="password"onChange={handleChange}/>
-                    {/* @error('password')
-                    <small class="text-danger">message</small>
-                    @enderror */}
-                    {errors.password && <small className="text-danger">{errors.password}</small>}
-                </div>
-                <div class="form-group">
-                    <label for="password-confirm">Xác nhận mật khẩu</label>
-                    <input value={form.password_confirmation}class="form-control" type="password" name="password_confirmation" id="password-confirm"onChange={handleChange}/>
                 </div>
                 <div class="card my-4 border">
                     <div class="card-header">

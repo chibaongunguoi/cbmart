@@ -5,6 +5,10 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = $(
   ).attr('content');
  let csrfToken = $('meta[name="csrf-token"]').attr('content');  
  export let csrf=<input type="hidden" name="_token" value={csrfToken} />
-export let route = (link)=>{
+export let route = (link='')=>{
     return APP_URL+link;
+};
+export let routeWithFullURL = (link='')=>{
+    console.log(window.location.href);
+    return window.location.href+link;
 };

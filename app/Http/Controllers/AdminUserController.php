@@ -13,6 +13,7 @@ class AdminUserController extends Controller
     function index(Request $request)
     {
         // $users = User::all()->paginate(1);
+        $type = $request->input('type') ? $request->input('type') : 'active';
         $keyword = '';
         $record_per_page = 2;
         $mess = $request->input('mess');
@@ -20,13 +21,20 @@ class AdminUserController extends Controller
         if ($request->input('keyword')) {
             $keyword = $request->input('keyword');
         }
-        $users = User::where('name', 'LIKE', "%{$keyword}%")->limit($record_per_page)->offset($record_per_page * ($page - 1))->get();
+        if ($type == "active") {
+            $action_list = ['delete' => "xóa tạm thời"];
+            $users = User::where('name', 'LIKE', "%{$keyword}%");
+        } else if ($type == "trash") {
+            $users = User::onlyTrashed()->where('name', 'LIKE', "%{$keyword}%");
+            $action_list = ['restore' => "khôi phục", 'permanentDelete' => "xóa vĩnh viễn"];
+        }
         $count = [
             'userActive' => User::count(),
             'userTrash' => User::onlyTrashed()->count(),
         ];
-        $count['user'] = $count['userActive'] + $count['userTrash'];
-        return inertia::render("Admin/User/List", compact('users',  'count', 'request', 'page', 'record_per_page', 'mess'));
+        $count['user'] = $users->count();
+        $users = $users->limit($record_per_page)->offset($record_per_page * ($page - 1))->get();
+        return inertia::render("Admin/User/List", compact('users',  'count', 'request', 'page', 'mess', "action_list", 'type'));
     }
     function add()
     {
@@ -64,9 +72,15 @@ class AdminUserController extends Controller
     }
     function delete(Request $request)
     {
-        $user = User::find($request->input('id'));
-        $user->delete();
-        return redirect('admin/user/list');
+        $id = $request->input('id');
+
+        $user = User::onlyTrashed()->find($id);
+        if ($user->count() > 0)
+            $user->forceDelete();
+        else {
+            User::find($id)->delete();
+        }
+        return redirect("admin/user/list?mess=delete_success");
     }
     function update(Request $request)
     {
@@ -89,6 +103,28 @@ class AdminUserController extends Controller
     function edit(Request $request)
     {
         $user = User::find($request->input('id'));
+
         return Inertia::render('Admin/User/Edit', compact('user'));
+    }
+    function action(Request $request)
+    {
+        $action = $request->input('action');
+        if ($action == 'delete') {
+            $checked_list = $request->input('list_check');
+            User::destroy($checked_list);
+            // dd($checked_list);
+            return redirect("admin/user/list?mess=delete_success");
+        } else if ($action == 'restore') {
+            $checked_list = $request->input('list_check');
+            User::withTrashed()->whereIn('id', $checked_list)
+                ->restore();
+            return redirect("admin/user/list?mess=restore_success");
+        } else if ($action == 'permanentDelete') {
+            $checked_list = $request->input('list_check');
+            User::withTrashed()->whereIn('id', $checked_list)
+                ->forceDelete();
+            return redirect("admin/user/list?mess=delete_success");
+        }
+        return redirect("admin/user/list");
     }
 }

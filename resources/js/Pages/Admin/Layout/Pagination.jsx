@@ -1,6 +1,6 @@
 import React from "react";
 import { record_show_per_page } from "../../../../../config/config";
-import { route } from "../../../helper/helper";
+import { route,routeWithFullURL } from "../../../helper/helper";
 import { useState } from "react";
 export default function Pagination({pageTotal,currentPage}){
   let delta=1;
@@ -33,7 +33,7 @@ while (pos<=pageTotal){
   // active = pos == curPage ? 'active' : '';
   if ( (pos==1||pos==pageTotal)) {
     a.push(<li className="page-item">
-      <a className={'page-link '+(pos==currentPage?"active":'')} href={route("admin/user/list?page="+pos)}>
+      <a className={'page-link '+(pos==currentPage?"active":'')} href={routeWithFullURL("&page="+pos)}>
         {pos}
       </a>
     </li>)
@@ -42,13 +42,13 @@ while (pos<=pageTotal){
     console.log(pos)
     if (pos>2)
     a.push(<li className="page-item">
-      {pos==3? <a className="page-link  " href={route("admin/user/list?page="+pos)}>
+      {pos==3? <a className="page-link  " href={routeWithFullURL("&page="+pos)}>
       {pos-1}
       </a> :<div className="page-link">. . .</div> }
     </li>)
     while (pos>pageTotal-range-2 && pos<pageTotal)
       a.push(<li className="page-item">
-        <a className={'page-link '+(pos==currentPage?"active":'')} href={route("admin/user/list?page="+pos)}>
+        <a className={'page-link '+(pos==currentPage?"active":'')} href={routeWithFullURL("&page="+pos)}>
           {pos++}
         </a>
       </li>)
@@ -56,13 +56,13 @@ while (pos<=pageTotal){
   }else if (truncateLeft<3 && pos<range+2){
     while (pos<=range+2 && pos<pageTotal)
     a.push(<li className="page-item">
-      <a className={"page-link "+(pos==currentPage?" active":'')} href={route("admin/user/list?page="+pos)}>
+      <a className={"page-link "+(pos==currentPage?" active":'')} href={routeWithFullURL("&page="+pos)}>
         {pos++}
       </a>
     </li>)
     if (pos<pageTotal)
       a.push(<li className="page-item">
-        {pos==pageTotal-1? <a className="page-link " href={route("admin/user/list?page="+pos)}>
+        {pos==pageTotal-1? <a className="page-link " href={routeWithFullURL("&page="+pos)}>
         {pos++}
         </a> :<div className="page-link">. . .</div> }
       </li>)
@@ -72,7 +72,7 @@ while (pos<=pageTotal){
       a.push(<li className="page-item"><div className="page-link">. . .</div></li>)
     }
     a.push(<li className="page-item">
-      <a className={"page-link "+(pos==currentPage?" active":'')} href={route("admin/user/list?page="+pos)}>
+      <a className={"page-link "+(pos==currentPage?" active":'')} href={routeWithFullURL("&page="+pos)}>
         {pos}
       </a>
     </li>)

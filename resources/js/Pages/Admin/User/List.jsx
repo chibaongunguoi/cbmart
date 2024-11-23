@@ -1,25 +1,38 @@
 import "../../../../css/AdminPage.css"
 import React from "react";
+import { useState } from "react";
 import Layout from "./../Layout/Layout";
 import Pagination from "../Layout/Pagination";
-import { route } from "../../../helper/helper";
+import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page,message } from "../../../../../config/config";
-export default function Home({users,count,request,page,mess}){
+export default function Home({users,count,request,page,mess,action_list,type}){
   return (
  <Layout>
-  <UserList users={users} count={count} request={request} page={page}mess={mess} />
+  <UserList users={users} count={count} request={request} page={page}mess={mess} action_list={action_list} type={type}/>
   </Layout>);
 }
-function UserList({users,count,request,page,mess}){
-    let pageTotal=parseInt( count.user/record_show_per_page);
+function UserList({users,count,request,page,mess,action_list,type}){
+    let [searchValue,setSearchValue]=useState('');
+    function handleSubmit(e) {
+        e.preventDefault();
+        window.location.replace(routeWithFullURL("&keyword="+searchValue))
+        // e.stopPropagation() ;
+      }
+      function handleChange(e) {
+        console.log(searchValue);
+        setSearchValue(e.target.value);
+      }
+    
+    let pageTotal=parseInt(Math.ceil(  count.user/record_show_per_page));
+   
   return (<div id="content" class="container-fluid">
     <div class="card">
     {mess?<div class="alert alert-success">{message[mess]}</div>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
-            <h5 class="m-0 ">Danh sách thành viên</h5>
-            <form action="" method="GET" class='row row-cols-lg-auto g-3 align-items-center'>
+            <h5 class="m-0 ">Danh sách thành viên {type=='trash'?" bị xóa":" hoạt động"}</h5>
+            <form onSubmit={handleSubmit} method="GET" class='row row-cols-lg-auto g-3 align-items-center'>
                 <div class="col-12">
-                    <input type="text" class="form-control" name='keyword' placeholder="Tìm kiếm" defaultValue={request.keyword}/>
+                    <input type="text" class="form-control" name='keyword' onChange={handleChange} placeholder="Tìm kiếm" defaultValue={request.keyword}/>
                 </div>
                 <div class="col-12">
                     <input type="submit" name="" value="Tìm kiếm" class="btn btn-primary btn-search col-12"/>
@@ -28,16 +41,14 @@ function UserList({users,count,request,page,mess}){
         </div>
         <div class="card-body">
             <div class="analytic">
-                <a href="request()fullUrlWithQuery(['status''active'])" class="text-primary">Kích hoạt<span class="text-muted">({count.userActive})</span></a>
-                <a href="request()fullUrlWithQuery(['status''trash'])" class="text-primary">Vô hiệu hóa<span class="text-muted">({count.userTrash})</span></a>
+                <a href={route("admin/user/list?type=active")} class="text-primary">Thành viên hoạt động <span class="text-muted">({count.userActive})</span></a>
+                <a href={route("admin/user/list?type=trash")} class="text-primary"> Thành viên bị xóa <span class="text-muted">({count.userTrash})</span></a>
             </div>
-            <form action="url('admin/user/action')" method=''>
+            <form action={route("admin/user/action")} method=''>
                 <div class="form-action form-inline py-3">
-                    <select class="form-control mr-1" name='act' id="">
-                        <option>Chọn</option>
-                        {/* @foreach ($list_act as $v$name) */}
-                        <option value='$v'>$name</option>
-                        {/* @endforeach */}
+                    <select class="form-control mr-1" name='action' id="">
+                        <option value="none">Chọn</option>
+                        <ActionList action_list={action_list}/>
                     </select>
                     <input type="submit" name="btn-search" value="Áp dụng" class="btn btn-primary"/>
                 </div>
@@ -60,7 +71,7 @@ function UserList({users,count,request,page,mess}){
                        users.map((user,index)=>{
                         return (<tr key={user.id}>
                             <td>
-                                <input type="checkbox" name='list_check[]' value="$userid"/>
+                                <input type="checkbox" name='list_check[]' value={user.id}/>
                             </td>
                             <th scope="row">{index+1}</th>
                             <td>{user.name}</td>
@@ -73,11 +84,11 @@ function UserList({users,count,request,page,mess}){
                             </td>
                             <td>{user.created_at}</td>
                             <td>
-                                <a href={route("admin/user/edit?id="+user.id)} class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                                {/* @if (Auth::id()!=$userid) */}
+                                {type=='active'?<a href={route("admin/user/edit?id="+user.id)} class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>:""}
+                              
                                 <a href={route("admin/user/delete?id="+user.id)} onclick="return confirm('Bạn có chắc chắn xóa bản ghi này?')" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
 
-                                {/* @endif */}
+                            
                             </td>
                         </tr>);
                        })}
@@ -90,10 +101,24 @@ function UserList({users,count,request,page,mess}){
                     </tbody>
                 </table>
             </form>
-            <Pagination pageTotal={pageTotal} currentPage={page} />
+            {(count.user>record_show_per_page)?<Pagination pageTotal={pageTotal} currentPage={page} />:null}
+            
             {/* $userslinks() */}
         </div>
     </div>
 </div>
 );
+}
+function ActionList({action_list}){
+    function render_action_list(list){
+        let a=[];
+        for (let i in list)
+            a.push(<option value={i} >{list[i]}</option>)
+        return a;
+    }
+    return (
+        <>
+        {render_action_list(action_list)}
+        </>
+    )
 }

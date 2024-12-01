@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\Models\Role;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -38,7 +39,8 @@ class AdminUserController extends Controller
     }
     function add()
     {
-        return Inertia::render('Admin/User/Add');
+        $roles = Role::all();
+        return Inertia::render('Admin/User/Add', compact('roles'));
     }
     function store(Request $request)
     {

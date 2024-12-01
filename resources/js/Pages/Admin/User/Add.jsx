@@ -4,13 +4,13 @@ import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
 import { useState,useEffect } from "react";
 import Notification from "../Ui/Notification";
-export default function Home(){
+export default function Home({roles}){
   return (
  <Layout>
-  <UserAdd />
+  <UserAdd roles={roles}/>
   </Layout>);
 }
-function UserAdd(){
+function UserAdd({roles}){
     const { errors } = usePage().props
     let [stateForm,setStateForm]=useState("edit");
     let [status,setStatus]=useState(null);
@@ -80,19 +80,17 @@ function UserAdd(){
                 </div>
                 <div class="card my-4 border">
                     <div class="card-header">
-                        {/* <!-- <input type="checkbox" class="check-all" name="" id="roles"> --> */}
                         <label for="roles" class="m-0">Roles</label>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            {/* @forelse($roles as $role) */}
-                            <div class="col-md-12">
-                                <input type="checkbox" class="role" value="{{$role->id}}" name="role_id[]" id="{{$role->id}}"onChange={handleChange}/>
-                                <label for="{{$role->id}}">role-name</label>
-                            </div>
-                            {/* @empty */}
-                            {/* <div>Ko có vai trò</div> */}
-                            {/* @endforelse */}
+                            {roles.map((role)=>{
+                                return (<div class="col-md-12">
+                                    <input type="checkbox" class="role" value="{{$role->id}}" name="role_id[]" id={role.id}onChange={handleChange}/>
+                                    <label for={role.id}>{role.name}</label>
+                                </div>);
+                            })}
+                            {roles.length<1?<div>Không có vai trò </div>:null}
                         </div>
                     </div>
                 </div>

@@ -73,9 +73,8 @@ class AdminUserController extends Controller
     function delete(Request $request)
     {
         $id = $request->input('id');
-
         $user = User::onlyTrashed()->find($id);
-        if ($user->count() > 0)
+        if ($user)
             $user->forceDelete();
         else {
             User::find($id)->delete();
@@ -97,13 +96,11 @@ class AdminUserController extends Controller
         ]);
         $user = User::find($request->input('id'));
         $user->update(['name' => $request->input('name'), 'email' => $request->input('email')]);
-        $status = "Cập nhập thông tin người dùng thành công";
         return redirect("admin/user/list?mess=update_success");
     }
     function edit(Request $request)
     {
         $user = User::find($request->input('id'));
-
         return Inertia::render('Admin/User/Edit', compact('user'));
     }
     function action(Request $request)

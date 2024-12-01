@@ -3,6 +3,7 @@ import Layout from "./../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
 import { useState,useEffect } from "react";
+import Notification from "../Ui/Notification";
 export default function Home(){
   return (
  <Layout>
@@ -23,7 +24,7 @@ function UserAdd(){
     useEffect(()=>{
         if ((stateForm=="submit") && (!Object.keys(errors).length))
             {
-              setStatus(<div class="alert alert-success">Thêm người dùng thành công</div>);
+              setStatus(<Notification mess={'user_add_success'}/>);
             setStateForm("edit");
             setForm({
                 'name':"",
@@ -34,7 +35,6 @@ function UserAdd(){
             });
             }
     },[errors]);
-    
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value});
     }
@@ -72,9 +72,6 @@ function UserAdd(){
                 <div class="form-group">
                     <label for="password">Mật khẩu</label>
                     <input value={form.password}class="form-control" type="password" name="password" id="password"onChange={handleChange}/>
-                    {/* @error('password')
-                    <small class="text-danger">message</small>
-                    @enderror */}
                     {errors.password && <small className="text-danger">{errors.password}</small>}
                 </div>
                 <div class="form-group">

@@ -10,7 +10,6 @@ export default function Home({user}){
   </Layout>);
 }
 function UserUpdate({user}){
-    console.log(user);
     const { errors } = usePage().props
     let [stateForm,setStateForm]=useState("edit");
     let [status,setStatus]=useState(null);
@@ -18,14 +17,6 @@ function UserUpdate({user}){
         'name':user.name,
         'email':user.email,
 })
-    useEffect(()=>{
-        if ((stateForm=="submit") && (!Object.keys(errors).length))
-            {
-                console.log(1);
-              setStatus(<div class="alert alert-success">Thêm người dùng thành công</div>);
-            setStateForm("edit");
-            }
-    },[errors]);
     
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value});

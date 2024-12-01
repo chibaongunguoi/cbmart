@@ -4,7 +4,8 @@ import { useState } from "react";
 import Layout from "./../Layout/Layout";
 import Pagination from "../Layout/Pagination";
 import { route,routeWithFullURL } from "../../../helper/helper";
-import { record_show_per_page,message } from "../../../../../config/config";
+import { record_show_per_page } from "../../../../../config/config";
+import Notification from "../Ui/Notification";
 export default function Home({users,count,request,page,mess,action_list,type}){
   return (
  <Layout>
@@ -22,12 +23,11 @@ function UserList({users,count,request,page,mess,action_list,type}){
         console.log(searchValue);
         setSearchValue(e.target.value);
       }
-    
     let pageTotal=parseInt(Math.ceil(  count.user/record_show_per_page));
    
   return (<div id="content" class="container-fluid">
     <div class="card">
-    {mess?<div class="alert alert-success">{message[mess]}</div>:""}
+    {mess?<Notification mess={mess}/>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Danh sách thành viên {type=='trash'?" bị xóa":" hoạt động"}</h5>
             <form onSubmit={handleSubmit} method="GET" class='row row-cols-lg-auto g-3 align-items-center'>
@@ -85,10 +85,7 @@ function UserList({users,count,request,page,mess,action_list,type}){
                             <td>{user.created_at}</td>
                             <td>
                                 {type=='active'?<a href={route("admin/user/edit?id="+user.id)} class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>:""}
-                              
-                                <a href={route("admin/user/delete?id="+user.id)} onclick="return confirm('Bạn có chắc chắn xóa bản ghi này?')" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
-
-                            
+                                <a href={route("admin/user/delete?id="+user.id)} onclick="return confirm('Bạn có chắc chắn xóa bản ghi này?')" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>     
                             </td>
                         </tr>);
                        })}

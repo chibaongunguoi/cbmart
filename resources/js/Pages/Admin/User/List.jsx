@@ -6,13 +6,13 @@ import Pagination from "../Layout/Pagination";
 import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page } from "../../../../../config/config";
 import Notification from "../Ui/Notification";
-export default function Home({users,count,request,page,mess,action_list,type}){
-  return (
+export default function Home({users,rolesOfUsers,count,request,page,status,action_list,type}){
+    return (
  <Layout>
-  <UserList users={users} count={count} request={request} page={page}mess={mess} action_list={action_list} type={type}/>
+  <UserList users={users} rolesOfUsers={rolesOfUsers} count={count} request={request} page={page}status={status} action_list={action_list} type={type}/>
   </Layout>);
 }
-function UserList({users,count,request,page,mess,action_list,type}){
+function UserList({users,rolesOfUsers,count,request,page,status,action_list,type}){
     let [searchValue,setSearchValue]=useState('');
     function handleSubmit(e) {
         e.preventDefault();
@@ -23,11 +23,11 @@ function UserList({users,count,request,page,mess,action_list,type}){
         console.log(searchValue);
         setSearchValue(e.target.value);
       }
-    let pageTotal=parseInt(Math.ceil(  count.user/record_show_per_page));
+    let pageTotal=parseInt(Math.ceil(count.user/record_show_per_page));
    
   return (<div id="content" class="container-fluid">
     <div class="card">
-    {mess?<Notification mess={mess}/>:""}
+    {status?<Notification>{status}</Notification>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Danh sách thành viên {type=='trash'?" bị xóa":" hoạt động"}</h5>
             <form onSubmit={handleSubmit} method="GET" class='row row-cols-lg-auto g-3 align-items-center'>
@@ -78,9 +78,10 @@ function UserList({users,count,request,page,mess,action_list,type}){
                             <td>{user.email}</td>
                             
                             <td>
-                                {/* @foreach($userRoles as $role) */}
-                                <span class='badge badge-warning'>$rolename</span>
-                                {/* @endforeach */}
+                                {rolesOfUsers[user.id].map((role)=>{
+                                    return(<span class='badge badge-warning'>{role.name}</span>)
+                                })}
+                                {/* {rolesOfUsers[user.id].length<1?<div> Hiện chưa có quyền</div>:null} */}
                             </td>
                             <td>{user.created_at}</td>
                             <td>

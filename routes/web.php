@@ -10,7 +10,7 @@ use App\Http\Controllers\PermissionController;
 //     return view('welcome');
 // });
 Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/admin/user/list', [AdminUserController::class, 'index']);
+Route::get('/admin/user/list', [AdminUserController::class, 'list']);
 Route::get('/admin/user/add', [AdminUserController::class, 'add']);
 Route::post('/admin/user/store', [AdminUserController::class, 'store']);
 Route::get('/admin/user/delete', [AdminUserController::class, 'delete']);

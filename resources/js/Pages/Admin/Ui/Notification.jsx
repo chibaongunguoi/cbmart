@@ -1,5 +1,5 @@
 import React from "react";
-export default function Notification({mess}){
+export default function Notification({children}){
     let  message={
         'user_add_success':"Thêm thành viên thành công",
         'user_delete_success':"Xóa thành viên thành công",
@@ -13,6 +13,6 @@ export default function Notification({mess}){
         'role_update_success':"Cập nhập vai trò thành công",
     };
     return (
-        <div class="alert alert-success">{message[mess]}</div>
+        <div class="alert alert-success">{children}</div>
     );
 }

@@ -2,8 +2,7 @@ import React from "react";
 import Layout from "./../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
-import { useState,useEffect } from "react";
-import Notification from "../Ui/Notification";
+import { useState } from "react";
 export default function Home({permissions}){
 return (
 <Layout>
@@ -17,26 +16,17 @@ function RoleAdd({permissions}){
     let [form ,setForm]=useState({
         'name':"",
         "description":"",
-        'permissionList':[]
+        'permission_id':[]
     })
-    useEffect(()=>{
-        if ((stateForm=="submit") && (!Object.keys(errors).length))
-        {
-        setStatus(<Notification mess={role_add_success}/>);
-        setStateForm("edit");
-        setForm({
-        'name':"",
-        "description":"",
-        'permissionList':[]
 
-    });}},[errors]);
-    function handlePermissionList(id,checked){
+    // });}},[errors]);
+    function handlepermission_id(id,checked){
     if (checked){
-        setForm({...form,permissionList:[...form.permissionList,...id]})
+        setForm({...form,permission_id:[...form.permission_id,...id]})
     }
     else{
-        let newlist=form.permissionList.filter((permissionId)=>{return id.indexOf(permissionId)==-1?true:false});
-        setForm({...form,permissionList:newlist}
+        let newlist=form.permission_id.filter((permissionId)=>{return id.indexOf(permissionId)==-1?true:false});
+        setForm({...form,permission_id:newlist}
         )
     }  
     }
@@ -45,12 +35,12 @@ function RoleAdd({permissions}){
         Object.keys(nodeList).map((index)=>{
                 nodeList[index].checked=e.target.checked
             });
-        handlePermissionList(Object.keys(nodeList).map((index)=>{
+        handlepermission_id(Object.keys(nodeList).map((index)=>{
            return  nodeList[index].value;
         }),e.target.checked); 
     }   
     function handleChangePermission(e){
-        handlePermissionList(e.target.value,e.target.checked);
+        handlepermission_id(e.target.value,e.target.checked);
     }
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value});
@@ -89,8 +79,8 @@ function RoleAdd({permissions}){
                 <small class="form-text text-muted pb-2">Check vào module hoặc các hành động bên dưới để chọn quyền.</small> 
                 {
                         Object.keys(permissions).map((permissionKey)=>{
-                        let permissionList=permissions[permissionKey];
-                        if(permissionList.length<1)
+                        let permission_id=permissions[permissionKey];
+                        if(permission_id.length<1)
                             return(<div>Hiện chưa có quyền </div>);
                         return (
                             <div class="card my-4 border">
@@ -100,7 +90,7 @@ function RoleAdd({permissions}){
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                {permissionList.map((permission)=>{
+                                {permission_id.map((permission)=>{
                                     return (<div class="col-md-3">
                                         <input onChange={handleChangePermission} type="checkbox" class="permission" value={permission.id} name="permission_id[]" id={permission.id}/>
                                         <label for={permission.id}>{permission.name}</label>

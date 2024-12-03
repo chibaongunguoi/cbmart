@@ -2,61 +2,57 @@ import React from "react";
 import Layout from "./../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
-import { useState,useEffect } from "react";
-import Notification from "../Ui/Notification";
+import { useState} from "react";
 export default function Home({roles}){
   return (
  <Layout>
-  <UserAdd roles={roles}/>
+  <UserAdd roles={roles} />
   </Layout>);
 }
 function UserAdd({roles}){
     const { errors } = usePage().props
-    let [stateForm,setStateForm]=useState("edit");
-    let [status,setStatus]=useState(null);
     let [form ,setForm]=useState({
         'name':"",
         'username':"",
         'email':"",
         'password':"",
         'password_confirmation':"",
+        'role_id':[]
     })
-    useEffect(()=>{
-        if ((stateForm=="submit") && (!Object.keys(errors).length))
-            {
-              setStatus(<Notification mess={'user_add_success'}/>);
-            setStateForm("edit");
-            setForm({
-                'name':"",
-                'username':"",
-                'email':"",
-                'password':"",
-                'password_confirmation':"",
-            });
-            }
-    },[errors]);
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value});
     }
-    function handleSubmit(e) {
-        e.preventDefault();
-        setStateForm("submit");
-        setStatus(null);
-        router.post(route("admin/user/store"), form);
-      }
-    
+    function handleSubmit(e){
+        e.preventDefault(); 
+        router.post(route('admin/user/store'),form);
+    }
+    function handleCheck(e){
+        return handleRoleList(e.target.value,e.target.checked);
+    }
+    function handleRoleList(id,checked){
+        if (checked){
+            setForm({...form,role_id:[...form.role_id,id]})
+        }
+        else{
+            let newlist=form.role_id.filter((role_id)=>{return id.indexOf(role_id)==-1?true:false});
+            setForm({...form,role_id:newlist}
+            )
+        }  
+        }
   return (<div id="content" class="container-fluid">
-    <div class="card">
-        {status}
+    <div class="card">    
         <div class="card-header font-weight-bold">
             Thêm người dùng
         </div>
         <div class="card-body">
-            <form  onSubmit={handleSubmit} method="POST">
+            <form 
+            //  action={route('admin/user/store')}
+            onSubmit={handleSubmit}
+              method="POST">
                 {csrf}
                 <div class="form-group">
                     <label for="name">Họ và tên</label>
-                    <input value={form.name}class="form-control" type="text" name="name" id="name" onChange={handleChange}/>
+                    <input  value={form.name}class="form-control" type="text" name="name" id="name" onChange={handleChange}/>
                     {errors.name && <small className="text-danger">{errors.name}</small>}
                 </div>
                 <div class="form-group">
@@ -80,13 +76,13 @@ function UserAdd({roles}){
                 </div>
                 <div class="card my-4 border">
                     <div class="card-header">
-                        <label for="roles" class="m-0">Roles</label>
+                        <label for="roles" class="m-0">Vai trò trong hệ thống</label>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             {roles.map((role)=>{
                                 return (<div class="col-md-12">
-                                    <input type="checkbox" class="role" value="{{$role->id}}" name="role_id[]" id={role.id}onChange={handleChange}/>
+                                    <input  type="checkbox" class="role" value={role.id}name="role_id[]" id={role.id}onChange={handleCheck}/>
                                     <label for={role.id}>{role.name}</label>
                                 </div>);
                             })}

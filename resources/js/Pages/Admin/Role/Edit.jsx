@@ -42,7 +42,6 @@ function handlePermissionList(id,checked){
         }),e.target.checked); 
     }   
     function handleChange(e){
-        console.log(form);
         setForm({...form,[e.target.name]:e.target.value});
     }
     function handleSubmit(e) {
@@ -89,7 +88,7 @@ function handlePermissionList(id,checked){
                                 <div class="row">
                                 {permissionList.map((permission)=>{
                                     return (<div class="col-md-3">
-                                        <input checked={currentpermissions.indexOf(permission.id)==-1?false:true} onChange={handleChangePermission} type="checkbox" class="permission " value={permission.id} name="permission_id[]" id={permission.id}/>
+                                        <input defaultChecked={currentpermissions.indexOf(permission.id)==-1?false:true} onChange={handleChangePermission} type="checkbox" class="permission " value={permission.id} name="permission_id[]" id={permission.id}/>
                                         <label for={permission.id}>{permission.name}</label>
                                     </div>);
                                 })}

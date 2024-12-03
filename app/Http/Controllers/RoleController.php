@@ -84,7 +84,7 @@ class RoleController extends Controller
             'name' => $request->name,
             'description' => $request->description,
         ]);
-        $role->Permissions()->sync($request->input('permissionList', []));
+        $role->Permissions()->sync($request->input('permission_id', []));
         return redirect('admin/role/list');
     }
     function delete(Request $request)

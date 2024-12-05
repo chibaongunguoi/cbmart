@@ -6,38 +6,21 @@ import Pagination from "../Layout/Pagination";
 import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page } from "../../../../../config/config";
 import Notification from "../Ui/Notification";
-export default function Home({users,rolesOfUsers,count,request,page,status,action_list,type}){
+import SearchBar from "../Ui/SearchBar";
+export default function Home({users,rolesOfUsers,count,searchWord,page,status,action_list,type}){
     return (
  <Layout>
-  <UserList users={users} rolesOfUsers={rolesOfUsers} count={count} request={request} page={page}status={status} action_list={action_list} type={type}/>
+  <UserList users={users} rolesOfUsers={rolesOfUsers} count={count} searchWord={searchWord} page={page}status={status} action_list={action_list} type={type}/>
   </Layout>);
 }
-function UserList({users,rolesOfUsers,count,request,page,status,action_list,type}){
-    let [searchValue,setSearchValue]=useState('');
-    function handleSubmit(e) {
-        e.preventDefault();
-        window.location.replace(routeWithFullURL("&keyword="+searchValue))
-        // e.stopPropagation() ;
-      }
-      function handleChange(e) {
-        console.log(searchValue);
-        setSearchValue(e.target.value);
-      }
+function UserList({users,rolesOfUsers,count,searchWord,page,status,action_list,type}){
     let pageTotal=parseInt(Math.ceil(count.user/record_show_per_page));
-   
   return (<div id="content" class="container-fluid">
     <div class="card">
     {status?<Notification>{status}</Notification>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Danh sách thành viên {type=='trash'?" bị xóa":" hoạt động"}</h5>
-            <form onSubmit={handleSubmit} method="GET" class='row row-cols-lg-auto g-3 align-items-center'>
-                <div class="col-12">
-                    <input type="text" class="form-control" name='keyword' onChange={handleChange} placeholder="Tìm kiếm" defaultValue={request.keyword}/>
-                </div>
-                <div class="col-12">
-                    <input type="submit" name="" value="Tìm kiếm" class="btn btn-primary btn-search col-12"/>
-                </div>
-            </form>
+            <SearchBar searchWord={searchWord} pageName={'user'}/>
         </div>
         <div class="card-body">
             <div class="analytic">
@@ -100,23 +83,13 @@ function UserList({users,rolesOfUsers,count,request,page,status,action_list,type
                 </table>
             </form>
             {(count.user>record_show_per_page)?<Pagination pageTotal={pageTotal} currentPage={page} />:null}
-            
-            {/* $userslinks() */}
         </div>
     </div>
 </div>
 );
 }
 function ActionList({action_list}){
-    function render_action_list(list){
-        let a=[];
-        for (let i in list)
-            a.push(<option value={i} >{list[i]}</option>)
-        return a;
-    }
-    return (
-        <>
-        {render_action_list(action_list)}
-        </>
-    )
+    return (Object.keys(action_list).map((key)=>{
+        return (<option value={key} >{action_list[key]}</option>);
+    }))
 }

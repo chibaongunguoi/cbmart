@@ -3,11 +3,13 @@ import Layout from "../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
 import { useState,useEffect } from "react";
-export default function Home({permissions}){
+import Notification from "../Ui/Notification";
+export default function Home({permissions,status}){
   return (
  <Layout>
     <div id="content" class="container-fluid">
     <div class="row">
+    {status?<Notification>{status}</Notification>:""}
   <PermissionAdd />
   <PerrmissionsList permissions={permissions} />
   </div>
@@ -16,37 +18,20 @@ export default function Home({permissions}){
 }
 function PermissionAdd(){
     const { errors } = usePage().props
-    let [stateForm,setStateForm]=useState("edit");
-    let [status,setStatus]=useState(null);
     let [form ,setForm]=useState({
         'name':"",
         'slug':"",
         'description':"",
     })
-    useEffect(()=>{
-        if ((stateForm=="submit") && (!Object.keys(errors).length))
-            {
-              setStatus(<div class="alert alert-success">Thêm người dùng thành công</div>);
-            setStateForm("edit");
-            setForm({
-                'name':"",
-                'slug':"",
-                'description':"",
-            })
-            }
-    },[errors]);
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value});
     }
     function handleSubmit(e) {
         e.preventDefault();
-        setStateForm("submit");
-        setStatus(null);
         router.post(route("admin/permission/store"), form);
       }
     return(
         <>
-        {status}
         <div className="col-4">       
                 <div class="card">
                     <div class="card-header font-weight-bold">
@@ -61,7 +46,7 @@ function PermissionAdd(){
                             </div>
                             <div class="form-group">
                                 <label for="slug">Slug</label>
-                                <small class="form-text text-muted pb-2">Ví dụ: posts.add</small>
+                                <small class="form-text text-muted pb-2"> Ví dụ: posts.add</small>
                                 <input class="form-control" type="text" name="slug" id="slug"/>
                                 {errors.slug && <small className="text-danger">{errors.slug}</small>}
                             </div>

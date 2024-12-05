@@ -3,6 +3,7 @@ import Layout from "./../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
 import { useState } from "react";
+import Notification from "../Ui/Notification";
 export default function Home({permissions}){
 return (
 <Layout>
@@ -56,6 +57,7 @@ function RoleAdd({permissions}){
     <>
     <div id="content" class="container-fluid">
     <div class="card">
+    {status?<Notification>{status}</Notification>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Thêm mới vai trò</h5>
         </div>
@@ -76,7 +78,7 @@ function RoleAdd({permissions}){
                     {errors.description && <small className="text-danger">{errors.description}</small>}
                 </div>
                 <strong>Vai trò này có quyền gì?</strong>
-                <small class="form-text text-muted pb-2">Check vào module hoặc các hành động bên dưới để chọn quyền.</small> 
+                <small class="form-text text-muted pb-2"> Check vào module hoặc các hành động bên dưới để chọn quyền.</small> 
                 {
                         Object.keys(permissions).map((permissionKey)=>{
                         let permission_id=permissions[permissionKey];

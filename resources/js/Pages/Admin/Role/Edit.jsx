@@ -17,27 +17,27 @@ function RoleEdit({role,permissions,currentpermissions}){
     let [form ,setForm]=useState({
         'name':role.name,
         'description':role.description,
-        'permissionList':currentpermissions
+        'permission_id':currentpermissions
 })
-function handlePermissionList(id,checked){
+function handlepermission_id(id,checked){
     if (checked){
-        setForm({...form,permissionList:[...form.permissionList,...id]})
+        setForm({...form,permission_id:[...form.permission_id,...id]})
     }
     else{
-        let newlist=form.permissionList.filter((permissionId)=>{return id.indexOf(permissionId)==-1?true:false});
-        setForm({...form,permissionList:newlist}
+        let newlist=form.permission_id.filter((permissionId)=>{return id.indexOf(permissionId)==-1?true:false});
+        setForm({...form,permission_id:newlist}
         )
     }  
     }
     function handleChangePermission(e){
-        handlePermissionList(e.target.value,e.target.checked);
+        handlepermission_id(e.target.value,e.target.checked);
     }
     function handleCheckAllPermission(e){ 
         let nodeList=e.target.closest('.card').querySelectorAll(".permission");
         Object.keys(nodeList).map((index)=>{
                 nodeList[index].checked=e.target.checked
             });
-        handlePermissionList(Object.keys(nodeList).map((index)=>{
+        handlepermission_id(Object.keys(nodeList).map((index)=>{
            return  nodeList[index].value;
         }),e.target.checked); 
     }   
@@ -53,7 +53,7 @@ function handlePermissionList(id,checked){
   return (<div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
-            <h5 class="m-0 ">Thêm mới vai trò</h5>
+            <h5 class="m-0 ">Chỉnh sửa vai trò</h5>
         </div>
         <div class="card-body">
             <form method="POST" 
@@ -75,8 +75,8 @@ function handlePermissionList(id,checked){
                 <small class="form-text text-muted pb-2">Check vào module hoặc các hành động bên dưới để chọn quyền.</small> 
                 {
                         Object.keys(permissions).map((permissionKey)=>{
-                        let permissionList=permissions[permissionKey];
-                        if(permissionList.length<1)
+                        let permission_id=permissions[permissionKey];
+                        if(permission_id.length<1)
                             return(<div>Hiện chưa có quyền </div>);
                         return (
                             <div class="card my-4 border">
@@ -86,7 +86,7 @@ function handlePermissionList(id,checked){
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                {permissionList.map((permission)=>{
+                                {permission_id.map((permission)=>{
                                     return (<div class="col-md-3">
                                         <input defaultChecked={currentpermissions.indexOf(permission.id)==-1?false:true} onChange={handleChangePermission} type="checkbox" class="permission " value={permission.id} name="permission_id[]" id={permission.id}/>
                                         <label for={permission.id}>{permission.name}</label>

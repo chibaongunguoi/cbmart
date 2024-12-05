@@ -36,7 +36,7 @@ function PermissionEdit({permission}){
         </div>
         <div class="card-body">
             <form onSubmit={handleSubmit} onChange={handleChange} method="POST">
-                @csrf
+                {csrf}
                 <div class="form-group">
                     <label for="name">Tên quyền</label>
                     <input class="form-control" defaultValue={form.name} type="text" name="name" id="name"/>

@@ -5,13 +5,14 @@ import Layout from "./../Layout/Layout";
 import Pagination from "../Layout/Pagination";
 import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page} from "../../../../../config/config";
-export default function Home({roles,count,request,page,mess,action_list,type}){
+import SearchBar from "../Ui/SearchBar";
+export default function Home({roles,count,request,page,mess,action_list,type,searchWord}){
   return (
  <Layout>
-  <RoleList roles={roles} count={count} request={request} page={page}mess={mess} action_list={action_list} type={type}/>
+  <RoleList roles={roles} searchWord={searchWord} count={count} request={request} page={page}mess={mess} action_list={action_list} type={type}/>
   </Layout>);
 }
-function RoleList({roles,count,request,page,mess,action_list,type}){
+function RoleList({roles,count,request,page,mess,action_list,type,searchWord}){
     let [searchValue,setSearchValue]=useState('');
     function handleSubmit(e) {
         e.preventDefault();
@@ -31,10 +32,7 @@ function RoleList({roles,count,request,page,mess,action_list,type}){
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Danh sách vai trò</h5>
             <div class="form-search form-inline">
-                <form action="#">
-                    <input type="" class="form-control form-search" placeholder="Tìm kiếm"/>
-                    <input type="submit" name="btn-search" value="Tìm kiếm" class="btn btn-primary"/>
-                </form>
+            <SearchBar searchWord={searchWord} pageName={'role'}/>
             </div>
         </div>
         <div class="card-body">

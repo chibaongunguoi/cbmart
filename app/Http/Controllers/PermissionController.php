@@ -14,8 +14,9 @@ class PermissionController extends Controller
         $permissions = Permission::all()->groupBy(function ($permission) {
             return explode('.', $permission->slug)[0];
         });
+        $status = session('status');
         // dd($permissions);
-        return inertia::render('Admin/Permission/Add', compact('permissions'));
+        return inertia::render('Admin/Permission/Add', compact('permissions', 'status'));
     }
     function store(Request $request)
     {
@@ -36,7 +37,7 @@ class PermissionController extends Controller
             'slug' => $request->slug,
             'description' => $request->description,
         ]);
-        return redirect('admin/permission/add')->with('status', 'Đã thêm quyền thành công');
+        return redirect('admin/permission/add')->with('status', 'Thêm quyền thành công');
     }
     function edit(Request $request)
     {
@@ -66,12 +67,12 @@ class PermissionController extends Controller
             'slug' => $request->slug,
             'description' => $request->description,
         ]);
-        return redirect("admin/permission/add?mess=update_success");
+        return redirect("admin/permission/add")->with('status', 'Cập nhập quyền thành công');
     }
     function delete(Request $request)
     {
         $id = $request->input('id');
         Permission::find($id)->delete();
-        return redirect("admin/permission/add?mess=delete_success");
+        return redirect("admin/permission/add")->with('status', 'Xóa quyền thành công');
     }
 }

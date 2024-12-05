@@ -12,17 +12,17 @@ class RoleController extends Controller
 {
     function list(Request $request)
     {
-        $keyword = '';
+        $searchWord = '';
         $record_per_page = 5;
         $mess = $request->input('mess');
         $page = $request->input('page') ? (int)($request->input('page')) : 1;
-        if ($request->input('keyword')) {
-            $keyword = $request->input('keyword');
+        if ($request->input('searchWord')) {
+            $searchWord = $request->input('searchWord');
         }
-        $roles = Role::where('name', 'LIKE', "%{$keyword}%");
+        $roles = Role::where('name', 'LIKE', "%{$searchWord}%");
         $count['role'] = $roles->count();
         $roles = $roles->limit($record_per_page)->offset($record_per_page * ($page - 1))->get();
-        return inertia::render("Admin/Role/List", compact('roles',  'count', 'request', 'page', 'mess',));
+        return inertia::render("Admin/Role/List", compact('roles',  'count', 'request', 'page', 'mess', 'searchWord'));
     }
     function add(Request $request)
     {
@@ -65,9 +65,9 @@ class RoleController extends Controller
         $currentpermissions = $role->Permissions()->get()->pluck('id')->toArray();
         return inertia::render('Admin/Role/Edit', compact('role', 'permissions', 'currentpermissions'));
     }
-    function update(Request $request, Role $role)
+    function update(Request $request)
     {
-
+        $role = Role::find($request->id);
         $request->validate([
             'name' => 'required|unique:roles,name,' . $role->id,
             'permission_id' => ['nullable', 'array'],

@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
-import { usePage } from "@inertiajs/react";
+import { usePage,router } from "@inertiajs/react";
 import { useState} from "react";
 export default function Home({user,roles,currentRoles}){
   return (
@@ -30,6 +30,10 @@ function handleRoleList(id,checked){
         )
     }  
     }
+    function handleSubmit(e){
+        e.preventDefault(); 
+        router.post(route('admin/user/update?id='+user.id),form);
+    }
 console.log(form);
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value});
@@ -37,10 +41,13 @@ console.log(form);
   return (<div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold">
-            Chỉnh sửa thông tin người dùng
+            Chỉnh sửa thông tin thành viên
         </div>
         <div class="card-body">
-            <form  action={route('admin/user/update?id='+user.id)} method="POST">
+            <form 
+            //  action={route('admin/user/update?id='+user.id)} 
+            onSubmit={handleSubmit}
+             method="POST">
                 {csrf}
                 <div class="form-group">
                     <label for="name">Họ và tên</label>

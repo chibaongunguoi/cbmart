@@ -9,6 +9,5 @@ export let route = (link='')=>{
     return APP_URL+link;
 };
 export let routeWithFullURL = (link='')=>{
-    console.log(window.location.href);
     return window.location.href+link;
 };

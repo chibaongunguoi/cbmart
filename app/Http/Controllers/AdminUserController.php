@@ -11,17 +11,23 @@ use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
 {
+    // function __construct()
+    // {
+    //     return session(['type' => 'active']);
+    // }
     function list(Request $request)
     {
-        // $users = User::all()->paginate(1);
         $status = session('status');
-        // dd($status);
-        // $type = $request->input('type') ? $request->input('type') : 'active';
         if ($request->input('type') != null) {
             $type = $request->input('type');
             session(['type' => $type]);
         } else {
-            $type = session('type');
+            if (session('type') != null) {
+                $type = session('type');
+            } else {
+                session(['type' => 'active']);
+                $type = session('type');
+            }
         }
         $searchWord = '';
         $record_per_page = 5;
@@ -125,7 +131,7 @@ class AdminUserController extends Controller
     }
     function action(Request $request)
     {
-        $action = $request->input('action');
+        $action = $request->input('act');
         if ($action == 'delete') {
             $checked_list = $request->input('list_check');
             User::destroy($checked_list);

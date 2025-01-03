@@ -12,6 +12,7 @@ class RoleController extends Controller
 {
     function list(Request $request)
     {
+        $status = session('status');
         $searchWord = '';
         $record_per_page = 5;
         $mess = $request->input('mess');
@@ -22,7 +23,7 @@ class RoleController extends Controller
         $roles = Role::where('name', 'LIKE', "%{$searchWord}%");
         $count['role'] = $roles->count();
         $roles = $roles->limit($record_per_page)->offset($record_per_page * ($page - 1))->get();
-        return inertia::render("Admin/Role/List", compact('roles',  'count', 'request', 'page', 'mess', 'searchWord'));
+        return inertia::render("Admin/Role/List", compact('roles',  'count', 'request', 'page', 'mess', 'searchWord', 'status'));
     }
     function add(Request $request)
     {
@@ -51,8 +52,8 @@ class RoleController extends Controller
             'description' => $request->description,
         ]);
 
-        $role->Permissions()->attach($request->permissionList);
-        return redirect('admin/role/add');
+        $role->Permissions()->attach($request->permission_id);
+        return redirect('admin/role/list')->with('status', 'thêm vai trò thành công');
     }
     function edit(Request $request)
     {
@@ -69,15 +70,16 @@ class RoleController extends Controller
     {
         $role = Role::find($request->id);
         $request->validate([
-            'name' => 'required|unique:roles,name,' . $role->id,
+            // 'name' => 'required|unique:roles,name,' . $role->id,
             'permission_id' => ['nullable', 'array'],
             'permission_id.*' => ['exists:permissions,id'],
             'description' => ['required', 'string'],
         ], [
+            'exists' => ":attribute đã tồn tại trong hệ thống",
             'required' => ':attribute không được để trống',
             'max' => ':attribute có độ dài tối đa :max ký tự',
         ], [
-            'name' => 'Tên quyền',
+            'name' => 'Tên vai trò  ',
             'description' => 'Mô tả'
         ]);
         $role->update([
@@ -91,6 +93,6 @@ class RoleController extends Controller
     {
         $id = $request->input('id');
         Role::find($id)->delete();
-        return redirect("admin/role/list?mess=delete_success");
+        return redirect('admin/role/list')->with('status', 'xóa vai trò thành công');
     } //
 }

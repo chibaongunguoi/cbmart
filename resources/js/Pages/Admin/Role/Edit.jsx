@@ -72,7 +72,7 @@ function handlepermission_id(id,checked){
                     {errors.description && <small className="text-danger">{errors.description}</small>}
                 </div>
                 <strong>Vai trò này có quyền gì?</strong>
-                <small class="form-text text-muted pb-2">Check vào module hoặc các hành động bên dưới để chọn quyền.</small> 
+                <small class="form-text text-muted pb-2"> Check vào module hoặc các hành động bên dưới để chọn quyền.</small> 
                 {
                         Object.keys(permissions).map((permissionKey)=>{
                         let permission_id=permissions[permissionKey];

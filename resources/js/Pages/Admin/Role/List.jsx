@@ -6,13 +6,15 @@ import Pagination from "../Layout/Pagination";
 import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page} from "../../../../../config/config";
 import SearchBar from "../Ui/SearchBar";
-export default function Home({roles,count,request,page,mess,action_list,type,searchWord}){
+import Notification from "../Ui/Notification";
+import { ActionList } from "../Ui/Form";
+export default function Home({roles,count,request,page,mess,action_list,type,searchWord,status}){
   return (
  <Layout>
-  <RoleList roles={roles} searchWord={searchWord} count={count} request={request} page={page}mess={mess} action_list={action_list} type={type}/>
+  <RoleList status={status} roles={roles} searchWord={searchWord} count={count} request={request} page={page}mess={mess} action_list={action_list} type={type}/>
   </Layout>);
 }
-function RoleList({roles,count,request,page,mess,action_list,type,searchWord}){
+function RoleList({roles,count,request,page,mess,action_list,type,searchWord,status}){
     let [searchValue,setSearchValue]=useState('');
     function handleSubmit(e) {
         e.preventDefault();
@@ -28,26 +30,17 @@ function RoleList({roles,count,request,page,mess,action_list,type,searchWord}){
   return (
   <div id="content" class="container-fluid">
     <div class="card">
-    {/* {mess?<div class="alert alert-success">{message[mess]}</div>:""} */}
+    {status?<Notification>{status}</Notification>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Danh sách vai trò</h5>
-            <div class="form-search form-inline">
             <SearchBar searchWord={searchWord} pageName={'role'}/>
-            </div>
         </div>
         <div class="card-body">
             {/* @if (session('status'))
             <div class="alert alert-success">{{session('status')}}</div>
             @endif */}
             <form action="{{url('admin/user/action')}}" method=''>
-                <div class="form-action form-inline py-3">
-                    <select class="form-control mr-1" name='act' id="">
-                        <option>Chọn</option>
-                        <option>Tác vụ 1</option>
-                        <option>Tác vụ 2</option>
-                    </select>
-                    <input type="submit" name="btn-search" value="Áp dụng" class="btn btn-primary"/>
-                </div>
+                        <ActionList action_list={action_list}/> 
                 <table class="table table-striped table-checkall">
                     <thead>
                         <tr>
@@ -94,17 +87,4 @@ function RoleList({roles,count,request,page,mess,action_list,type,searchWord}){
     </div>
 </div>
 );
-}
-function ActionList({action_list}){
-    function render_action_list(list){
-        let a=[];
-        for (let i in list)
-            a.push(<option value={i} >{list[i]}</option>)
-        return a;
-    }
-    return (
-        <>
-        {render_action_list(action_list)}
-        </>
-    )
 }

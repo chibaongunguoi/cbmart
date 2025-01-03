@@ -3,18 +3,19 @@ import { record_show_per_page } from "../../../../../config/config";
 import { route,routeWithFullURL } from "../../../helper/helper";
 import { useState } from "react";
 export default function Pagination({pageTotal,currentPage}){
+  console.log('1',window.location.search);
   let delta=1;
     return (<nav aria-label="Page navigation example">
         <ul className="pagination" >
           <li className="page-item" >
-            <a className={"page-link "+(currentPage==1?"disabled":'')} href={route("admin/user/list?page="+(currentPage-1))} aria-label="Previous">
+            <a className={"page-link "+(currentPage==1?"disabled":'')} href={routeWithFullURL("&page="+(currentPage-1))} aria-label="Previous">
               <span aria-hidden="true">Trước</span>
               {/* <span className="sr-only">Sau</span> */}
             </a>
           </li>
          {pagination(pageTotal,delta,currentPage)}
           <li className="page-item" >
-            <a className={"page-link "+(currentPage==pageTotal?"disabled":'')} href={route("admin/user/list?page="+(currentPage+1))} aria-label="Next">
+            <a className={"page-link "+(currentPage==pageTotal?"disabled":'')} href={routeWithFullURL("&page="+(currentPage+1))} aria-label="Next">
               <span aria-hidden="true">Sau</span>
               {/* <span className="sr-only">Next</span> */}
             </a>
@@ -28,7 +29,6 @@ let pos=1;
 let truncateLeft=currentPage-delta;
 let truncateRight=currentPage+delta;
 let range=2*delta +1;
-console.log(range,truncateLeft,truncateRight);
 while (pos<=pageTotal){
   // active = pos == curPage ? 'active' : '';
   if ( (pos==1||pos==pageTotal)) {
@@ -39,7 +39,6 @@ while (pos<=pageTotal){
     </li>)
   }
   else if (truncateRight>pageTotal-3 && pos>pageTotal-range-2){
-    console.log(pos)
     if (pos>2)
     a.push(<li className="page-item">
       {pos==3? <a className="page-link  " href={routeWithFullURL("&page="+pos)}>

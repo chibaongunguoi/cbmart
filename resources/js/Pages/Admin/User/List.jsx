@@ -7,6 +7,7 @@ import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page } from "../../../../../config/config";
 import Notification from "../Ui/Notification";
 import SearchBar from "../Ui/SearchBar";
+import { ActionList } from "../Ui/Form";
 export default function Home({users,rolesOfUsers,count,searchWord,page,status,action_list,type}){
     return (
  <Layout>
@@ -16,7 +17,7 @@ export default function Home({users,rolesOfUsers,count,searchWord,page,status,ac
 function UserList({users,rolesOfUsers,count,searchWord,page,status,action_list,type}){
     let pageTotal=parseInt(Math.ceil(count.user/record_show_per_page));
   return (<div id="content" class="container-fluid">
-    <div class="card">
+    <div class="card">   
     {status?<Notification>{status}</Notification>:""}
         <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
             <h5 class="m-0 ">Danh sách thành viên {type=='trash'?" bị xóa":" hoạt động"}</h5>
@@ -28,13 +29,9 @@ function UserList({users,rolesOfUsers,count,searchWord,page,status,action_list,t
                 <a href={route("admin/user/list?type=trash")} class="text-primary"> Thành viên bị xóa <span class="text-muted">({count.userTrash})</span></a>
             </div>
             <form action={route("admin/user/action")} method=''>
-                <div class="form-action form-inline py-3">
-                    <select class="form-control mr-1" name='action' id="">
-                        <option value="none">Chọn</option>
+
                         <ActionList action_list={action_list}/>
-                    </select>
-                    <input type="submit" name="btn-search" value="Áp dụng" class="btn btn-primary"/>
-                </div>
+                    
                 <table class="table table-striped table-checkall">
                     <thead>
                         <tr>
@@ -87,9 +84,4 @@ function UserList({users,rolesOfUsers,count,searchWord,page,status,action_list,t
     </div>
 </div>
 );
-}
-function ActionList({action_list}){
-    return (Object.keys(action_list).map((key)=>{
-        return (<option value={key} >{action_list[key]}</option>);
-    }))
 }

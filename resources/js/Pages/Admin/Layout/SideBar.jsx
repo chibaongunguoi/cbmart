@@ -91,9 +91,7 @@ export default function SideBar(){
                 <i class="arrow fas fa-angle-right"></i>
                 <ul class="sub-menu">
                     <li><a href={route('admin/permission/add')}>Quyền</a></li>
-               
                     <li><a href={route('admin/role/add')}>Thêm vai trò</a></li>
-              
                     <li><a href={route('admin/role/list')}>Danh sách vai trò</a></li>
                 </ul>
             </li>

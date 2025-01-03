@@ -34,7 +34,6 @@ function handleRoleList(id,checked){
         e.preventDefault(); 
         router.post(route('admin/user/update?id='+user.id),form);
     }
-console.log(form);
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value});
     }

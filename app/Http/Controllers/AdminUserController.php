@@ -20,20 +20,14 @@ class AdminUserController extends Controller
         $status = session('status');
         if ($request->input('type') != null) {
             $type = $request->input('type');
-            session(['type' => $type]);
         } else {
-            if (session('type') != null) {
-                $type = session('type');
-            } else {
-                session(['type' => 'active']);
-                $type = session('type');
-            }
+            $type = 'active';
         }
         $searchWord = '';
         $record_per_page = 5;
         $page = $request->input('page') ? (int)($request->input('page')) : 1;
-        if ($request->input('searchWord')) {
-            $searchWord = $request->input('searchWord');
+        if ($request->input('q')) {
+            $searchWord = $request->input('q');
         }
         if ($type == "active") {
             $action_list = ['delete' => "xóa tạm thời"];

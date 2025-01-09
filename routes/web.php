@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermissionController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [HomeController::class, 'home']);
+
+
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/user/list', [AdminUserController::class, 'list']);
 Route::get('/admin/user/add', [AdminUserController::class, 'add']);

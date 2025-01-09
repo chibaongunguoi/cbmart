@@ -11,3 +11,9 @@ export let route = (link='')=>{
 export let routeWithFullURL = (link='')=>{
     return window.location.href+link;
 };
+export function changeAttr(attrValue){
+    let url=new URL(window.location.href);
+    for (let x in attrValue)
+        url.searchParams.set(x,attrValue[x]);
+    return url;    
+}

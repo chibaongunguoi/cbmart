@@ -17,8 +17,8 @@ class RoleController extends Controller
         $record_per_page = 5;
         $mess = $request->input('mess');
         $page = $request->input('page') ? (int)($request->input('page')) : 1;
-        if ($request->input('searchWord')) {
-            $searchWord = $request->input('searchWord');
+        if ($request->input('q')) {
+            $searchWord = $request->input('q');
         }
         $roles = Role::where('name', 'LIKE', "%{$searchWord}%");
         $count['role'] = $roles->count();

@@ -1,6 +1,3 @@
-
-
-
 import React from "react";
 import SideBar from "./SideBar";
 import Header from "./Header";
@@ -19,9 +16,5 @@ export default function Layout({children}){
       </div>
     </div>
   </div>
-  
-  
-  
-
   </>);
 }

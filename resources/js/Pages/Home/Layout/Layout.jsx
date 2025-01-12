@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../../css/HomeHeader.css";
 export default function Layout({children}){
   return (
     <>
@@ -8,8 +7,61 @@ export default function Layout({children}){
     <div id="page-body" class="content"> 
       {children}
     </div>
+    <Footer/>
   </div>
   </>);
+}
+function Footer(){
+  return (
+    <>
+    <div class="footer">
+      <div className="footer-content-wrapper container">
+        <div className="footer-content-card about-us-wrapper">
+          <div className="footer-content-card-title">
+            VỀ CBSHOP
+          </div>
+          <div className="footer-content-card-content">
+            CBSHOP là đơn vị chuyên cung cấp các sản phẩm công nghệ cao, đặc biệt là máy tính và linh kiện chính hãng. Với đa dạng dòng sản phẩm như laptop, PC, đến các phụ kiện như màn hình, bàn phím cơ, chuột, tai nghe và các linh kiện máy tính (RAM, SSD, card đồ họa).
+          </div>
+
+        </div>
+        <div className="footer-content-card contact">
+        <div className="footer-content-card-title">
+            LIÊN HỆ
+          </div>
+          <ul className="footer-content-card-contact">
+              <li className="footer-contact-wrapper">
+                <a href="" className="footer-contact-li">
+                  <img class="footer-contact-icon" src="https://down-vn.img.susercontent.com/file/2277b37437aa470fd1c71127c6ff8eb5"/>
+                  <span class="footer-contact-desc">Facebook</span>
+                </a>
+              </li>
+              <li className="footer-contact-wrapper">
+                <a href="" className="footer-contact-li">
+                  <img class="footer-contact-icon" src="public/img/Home/Home/phone_icon1.png"/>
+                  <span class="footer-contact-desc phone-number">0967430257</span>
+                </a>
+              </li>
+              
+          </ul>
+        </div>
+        <div className="footer-content-card contact">
+          <div className="footer-content-card-title">
+              THANH TOÁN
+            </div>
+            <ul className="footer-content-card-payment">
+              <li className="footer-payment-wrapper">
+                <img className="payment-icon" src="public/img/Home/Home/momo_logo.png" alt="" />
+              </li>
+              
+              
+          </ul>  
+        </div>
+      </div>
+    </div>
+    </>
+  );
+
 }
 function Header(){
   return (

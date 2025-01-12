@@ -8,12 +8,10 @@
     left: 0;
     right:0;
     top:0;
+    z-index: 300;
     /* transform: translateZ(0); */
 }
-svg{
-    background-color: black;
-    color:black;
-}
+
 .container{
     margin-left: auto;
     margin-right: auto;
@@ -24,6 +22,7 @@ svg{
     height: 2.125rem;
     position: relative;
     z-index: 400;
+    color:#fff;
 }
 .navbar-links{
     display: flex;
@@ -31,12 +30,14 @@ svg{
     list-style: none;
     margin:0;
     padding: 0;
+    
     /* height: 2.125rem; */
     
 }
 .navbar-link{
     cursor: pointer;
     padding: 0rem 0.625rem;
+    font-size: 1.125rem;
 }
 .company-logo-wrapper{
     padding-right: 2.5rem;
@@ -54,7 +55,7 @@ svg{
 }
 .header-search-wrapper{
     display: flex;
-    height: 4.25rem;
+    height: 4.75rem;
     justify-content: space-between;
     padding: 1rem 0 .625rem;
 }
@@ -101,6 +102,8 @@ svg{
     background-color: #fb5533;
     position: relative;
     top :-2px;
+    color: #fff;
+    fill: currentColor;
 }
 .cart-wrapper{
     align-items: center;
@@ -109,11 +112,16 @@ svg{
     justify-content: center;
     margin: 0 10px;
     box-sizing: border-box;
+    top:-0.175rem;
+    position: relative;
 }
 .cart-icon{
     background-color: #FD774E;
     position: relative;
     top :0.5rem;
+    color: #fff;
+    stroke: #fff;
+    fill: currentColor;
 }
 .cart-number-badget{
     background-color: #fff;
@@ -121,7 +129,7 @@ svg{
     border-radius: 2.75rem;
     color: var(--brand-primary-color,#ee4d2d);
     height: 1.25rem;
-    line-height: 0.9375em;
+    /* line-height: 0.9375em; */
     margin-right: -.875rem;
     width: 1.5rem;
     padding: 0 .3125rem;

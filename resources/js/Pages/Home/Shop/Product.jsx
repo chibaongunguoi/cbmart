@@ -8,7 +8,6 @@ import { Autoplay,Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { transformWithEsbuild } from "vite";
 export default function Home(){
   function renderBCItem(){
     let a=[];
@@ -49,13 +48,14 @@ export default function Home(){
 
           </div>
           <div className="seller-info-wrapper">
-            {/* <SellerInfoContent title={"Đánh giá"} value={432}/> */}
+            <SellerInfoContent title={"Đánh giá"} value={432}/>
             
           </div>
         </div>
       </div>
   </div>
-  </Layout>);
+  </Layout>
+  );
 }
 function SellerInfoContent({title,value}){
 return (

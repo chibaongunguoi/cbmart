@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', [HomeController::class, 'home']);
 
@@ -33,3 +34,5 @@ Route::get('/admin/role/edit', [RoleController::class, 'edit']);
 Route::post('/admin/role/update', [RoleController::class, 'update']);
 Route::get('/admin/role/delete', [RoleController::class, 'delete']);
 Route::get('/admin/role/list', [RoleController::class, 'list']);
+
+Route::get('/product', [ProductController::class, 'index']);

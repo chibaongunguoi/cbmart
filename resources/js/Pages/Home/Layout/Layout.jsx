@@ -1,4 +1,5 @@
 import React from "react";
+import "../../../../../resources/css/HomeLayout.css";
 export default function Layout({children}){
   return (
     <>

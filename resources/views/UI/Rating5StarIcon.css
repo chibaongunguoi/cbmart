@@ -22,8 +22,12 @@
   /* margin-right: 0px; */
   margin-right: 1.5px;
   position: relative;
-  width:14px;
-  height: 20px;
+  /* margin-right: 20px; */
+}
+.rating-star-icon-list{
+  margin-top: 7px; 
+  /* width: 166.25px; */
+  /* height: 33.25px; */
 }
 .rating-star-fill{
   height: 100%;
@@ -32,6 +36,8 @@
   position: absolute;
   top: 0;
   z-index: 1;
+ 
+  /* font-size: 1.5rem; */
 }
 .rating-star-icon-fill{
   color: #faca51;
@@ -46,7 +52,7 @@
   fill: currentColor;
   position: relative;
 }
-.rating-star-icon-border{
+.rating-star-icon-border-wrapper{
   overflow: hidden;
   color: #faca51;
   display: block;
@@ -54,7 +60,6 @@
   display: inline-block;
   height: 1em;
   width: 1em;
-  
   fill: currentColor;
   position: relative;
 }

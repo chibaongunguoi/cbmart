@@ -96,22 +96,8 @@ body {
   align-items: center;
 }
 
-.shop-section-wrapper{
-    padding: 24px 0px 0px 0px;
 
-}
-.shop-section-header{
-    background: 0 0;
-    height: 38px;
-    line-height: 38px;
-}
-.shop-section-title{
-    color: #424242;
-    font-size: 22px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+
 .card-categories-ul{
     
     display: flex;

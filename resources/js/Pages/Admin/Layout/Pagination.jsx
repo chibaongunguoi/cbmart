@@ -1,8 +1,7 @@
 import React from "react";
-import { record_show_per_page } from "../../../../../config/config";
 import { route,routeWithFullURL,changeAttr } from "../../../helper/helper";
 import { useState } from "react";
-export default function Pagination({pageTotal,currentPage}){
+export default function Pagination({pageTotal,currentPage,record_show_per_page}){
   let delta=1;
     return (<nav aria-label="Page navigation example">
         <ul className="pagination" >

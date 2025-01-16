@@ -2,9 +2,11 @@ import React from "react";
 import "../../../../../resources/css/HomeContent.css";
 import Layout from "../Layout/Layout";
 import Rating5StarIcon from "../../../../views/UI/Rating5StarIcon";
+import ShopSection from "../../../../views/UI/ShopSection";
 import { useState,useRef,useEffect } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay,Navigation, Pagination } from 'swiper/modules';
+
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -23,21 +25,7 @@ export default function Home(){
   </div>
   </Layout>);
 }
-function ShopSection({title,children}){
-  return (
-    <div className="shop-section-wrapper container">
-      <div className="shop-section-header">
-        <div className="shop-section-title">
-          {title}
-        </div>
-      </div>
-      <div className="shop-section-content">
-          {children}
-      
-      </div>
-    </div>
-  );
-}
+
 function Recommend(){
   function renderHomeRecommendCard(){
       let HomeRecommendCardList=[];

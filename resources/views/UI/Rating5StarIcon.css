@@ -1,15 +1,5 @@
-.card-recommend-rating-wrapper{
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 8px;
-  position: relative;
 
-}
-.card-recommend-rating{
-  /* flex-direction: row; */
-  display: flex;
-}
-.card-recommend-rating-star{
+.card-product-rating-star{
   position: relative;
   flex-direction: row;
   display: flex;

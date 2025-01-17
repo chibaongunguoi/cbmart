@@ -2,7 +2,7 @@ import "../../../../css/AdminPage.css"
 import React from "react";
 import { useState } from "react";
 import Layout from "./../Layout/Layout";
-import Pagination from "../Layout/Pagination";
+import Pagination from "../../../../views/UI/Pagination";
 import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page } from "../../../../../config/config";
 import Notification from "../Ui/Notification";
@@ -11,7 +11,7 @@ import { ActionList } from "../Ui/Form";
 export default function Home({users,rolesOfUsers,count,searchWord,page,status,action_list,type}){
     return (
  <Layout>
-  <UserList users={users} rolesOfUsers={rolesOfUsers} count={count} searchWord={searchWord} page={page}status={status} action_list={action_list} type={type}/>
+         <UserList users={users} rolesOfUsers={rolesOfUsers} count={count} searchWord={searchWord} page={page}status={status} action_list={action_list} type={type}/>
   </Layout>);
 }
 function UserList({users,rolesOfUsers,count,searchWord,page,status,action_list,type}){

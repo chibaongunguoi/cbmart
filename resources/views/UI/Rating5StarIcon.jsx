@@ -20,7 +20,7 @@ export default function Rating5StarIcon({ratingPoint=4,style={
       }
       return StarList;
     }
-  return (<div className="card-recommend-rating-star">
+  return (<div className="card-product-rating-star">
     {renderStar()}               
   </div>);
   }

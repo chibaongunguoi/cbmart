@@ -129,10 +129,9 @@
     border-radius: 2.75rem;
     color: var(--brand-primary-color,#ee4d2d);
     height: 1.25rem;
-    /* line-height: 0.9375em; */
+    line-height: 1.25em;
     margin-right: -.875rem;
     width: 1.5rem;
-    padding: 0 .3125rem;
     position: relative;
     text-align: center;
     top: -1.75rem;

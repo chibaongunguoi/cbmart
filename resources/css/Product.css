@@ -410,6 +410,7 @@
     border-radius: .125rem;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
     margin-top: .9375rem;
+    /* margin-top: .9375rem; */
     overflow: hidden;
     padding: .625rem;
     padding: 1.5rem 1.5rem 0;
@@ -557,3 +558,9 @@
         word-break: break-word;
         white-space: pre-wrap;
     }
+.reply-pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+    text-align: right;
+}    

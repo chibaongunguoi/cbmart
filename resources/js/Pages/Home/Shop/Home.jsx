@@ -3,10 +3,9 @@ import "../../../../../resources/css/HomeContent.css";
 import Layout from "../Layout/Layout";
 import Rating5StarIcon from "../../../../views/UI/Rating5StarIcon";
 import ShopSection from "../../../../views/UI/ShopSection";
-import { useState,useRef,useEffect } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay,Navigation, Pagination } from 'swiper/modules';
-
+import ProductCardList from "../../../../views/UI/ProductCardList";
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -27,53 +26,8 @@ export default function Home(){
 }
 
 function Recommend(){
-  function renderHomeRecommendCard(){
-      let HomeRecommendCardList=[];
-      for (let i=0;i<42;i++){  
-          HomeRecommendCardList.push(<HomeRecommendCard/>);
-      }
-      return(<>
-        {HomeRecommendCardList}
-        
-      </>
-      );
-    
-  }
   return (
-    <ShopSection title={'Đề Cử Cho Bạn'}>
-        <div className="card-recommend-ul">
-          {renderHomeRecommendCard()}
-        </div>
-        <div className="recommend-load-more-wrapper">  
-            <div className="recommend-load-more-button">
-              XEM THÊM
-            </div>
-        </div>
-    </ShopSection>
-  );
-}
-function HomeRecommendCard(){
-  return(
-<div className="card-recommend-li">
-            <a href="card-recommend-li-content">
-              <div className="card-recommend-imgage-wrapper">
-                <img className="card-recommend-imgage" src="https://img.lazcdn.com/g/p/748536eb94b58d36c5cb8f9d976d8996.png_170x170q80.jpg"></img>
-              </div>
-              <div className="card-recommend-desc">
-                <div className="card-recommend-name">
-                Canvas Bee|Star bracelet design, versatile whitening and sweet bracelet
-                </div>
-                <div className="card-recommend-price-wrapper">
-                  <div className="card-recommend-price">
-                    <span className="currency">₫</span>
-                    <span class="price">7,000</span>
-                    <span class="discount">-30%</span>
-                  </div>
-                </div>
-                <Rating/>
-              </div>
-            </a>
-          </div>
+        <ProductCardList title={"Đề Cử Cho Bạn"} total={42}/>
   );
 }
 function Rating(){

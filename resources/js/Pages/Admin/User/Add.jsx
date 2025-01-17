@@ -6,7 +6,7 @@ import { useState} from "react";
 export default function Home({roles}){
   return (
  <Layout>
-  <UserAdd roles={roles} />
+        <UserAdd roles={roles} />
   </Layout>);
 }
 function UserAdd({roles}){

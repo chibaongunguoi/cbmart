@@ -4,6 +4,7 @@ import "../../../../../resources/css/Product.css";
 import Rating5StarIcon from "../../../../views/UI/Rating5StarIcon";
 import Pagination from "../../../../views/UI/Pagination";
 import ProductCardList from "../../../../views/UI/ProductCardList";
+import ProductQtyEdit from "../../../../views/UI/ProductQTyEdit";
 import { useState,useRef,useEffect } from "react";
 
 import 'swiper/css/bundle';
@@ -19,7 +20,7 @@ export default function Home(){
   }
   return (
  <Layout>
-  <div className="content-wrapper ">
+  
      <div className="breadcrumd-wrapper container">
         <div className="breadcrumd">
           <ul className="breadcrumb-list">
@@ -28,7 +29,6 @@ export default function Home(){
         </div>
      </div>
      <ProductImportantInfo/>
-     //seller
       <div className="seller-wrapper container">
         <div className="seller">
           <div className="seller-acc">
@@ -56,9 +56,7 @@ export default function Home(){
             <SellerInfoContent title={"Người Theo Dõi"} value={432}/>     
           </div>
       </div>
-      {/* seller-end */}
 
-      //mô tả sản phẩm
       <div className="product-des-wrapper container">
         <h2 className="product-des-title ">
           MÔ TẢ SẢN PHẨM
@@ -68,7 +66,7 @@ export default function Home(){
         </div>
       </div>
 
-      //Đánh Giá
+
       <div className="product-des-wrapper container">
         <h2 className="product-des-title ">
           ĐÁNH GIÁ SẢN PHẨM
@@ -118,7 +116,7 @@ export default function Home(){
       </div>
       <ProductFromShop/>
       <Recommend/>
-  </div>
+  
   </Layout>
   );
 }
@@ -212,7 +210,7 @@ return (
 );
 }
 function ProductImportantInfo(){
-  return(<div className="product-wrapper">
+  return(<div className="product-wrapper container">
     <div className="product">
       <div className="product-img-wrapper">
         <img className="product-img" src="https://img.lazcdn.com/g/p/aed145245cd1b3cc6eb39a5fb950f5b7.jpg_720x720q80.jpg_.webp" alt="" />
@@ -280,18 +278,7 @@ function ProductImportantInfo(){
               Số lượng
             </h3>
             <div className="product-optional-wrapper">
-            <div className="product-qty-wrapper">
-              
-                <buttton className="qty-button">
-                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="product-svg-qty"><polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon></svg>
-                </buttton>
-              
-                <input class="product-qty-input" type="text" disabled="" role="spinbutton" aria-live="assertive" aria-valuenow="1" value="1"></input>
-                <buttton className="qty-button">
-                <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="product-svg-qty icon-plus-sign"><polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon></svg>
-                </buttton>
-              
-              </div>
+            <ProductQtyEdit currentQty={12} max={12}/>
               <div className="product-qty-remain">
                 Còn lại 2000 sản phẩm
               </div>

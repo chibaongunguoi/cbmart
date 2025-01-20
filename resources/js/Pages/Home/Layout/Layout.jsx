@@ -5,9 +5,9 @@ export default function Layout({children}){
     <>
   <div id="warpper" class="nav-fixed">
     <Header />
-    <div id="page-body" class="content"> 
-      {children}
-    </div>
+      <div className="content-wrapper">     
+        {children}
+      </div>
     <Footer/>
   </div>
   </>);

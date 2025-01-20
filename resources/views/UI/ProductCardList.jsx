@@ -2,7 +2,7 @@ import React from "react";
 import Rating5StarIcon from "./Rating5StarIcon";
 import "./ProductCardList.css";
 import ShopSection from "./ShopSection";
-export default function ProductCardList({total=12,title="Đề Cử Cho Bạn"}){
+export default function ProductCardList({total=12,title="Gợi Ý Cho Bạn",loadMoreBtn=true}){
   function renderProduct(total){
     let ProductList=[];
     for (let i=0;i<total;i++){  
@@ -12,14 +12,14 @@ export default function ProductCardList({total=12,title="Đề Cử Cho Bạn"})
 }
   return (
     <ShopSection title={title}>
-
     <div className="card-product-ul">
           {renderProduct(total)}
     </div>
+    {loadMoreBtn==true?
     <div className="product-load-more-wrapper">  
         <LoadMoreButton/>    
-    </div>
-    
+    </div>:null
+    }
     </ShopSection>
   );
 }
@@ -36,8 +36,10 @@ function ProductCard(){
                 </div>
                 <div className="card-product-price-wrapper">
                   <div className="card-product-price">
-                    <span className="currency">₫</span>
                     <span class="price">7,000</span>
+                    <span className="currency">₫</span>
+                    
+
                     <span class="discount">-30%</span>
                   </div>
                 </div>

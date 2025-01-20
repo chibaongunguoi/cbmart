@@ -1,9 +1,10 @@
 import React from "react";
+import "./Pagination.css";
 import { route,routeWithFullURL,changeAttr } from "../../js/helper/helper";
 import { useState } from "react";
 export default function Pagination({pageTotal=20,currentPage=1,record_show_per_page=10}){
   let delta=1;
-    return (<nav aria-label="Page navigation example">
+    return (<nav aria-label="pagination-wrapper">
         <ul className="pagination" >
           <li className="page-item" >
             <a className={"page-link "+(currentPage==1?"disabled":'')} href={changeAttr({'page':currentPage-1})} aria-label="Previous">

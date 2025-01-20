@@ -47,8 +47,9 @@
 .currency,.price{
   color: #f57224;
   font-size: 18px;
-  height: 22px;
-  line-height: 22px;
+}
+.price{
+  margin-right: 3px;
 }
 .discount{
   color: #212121;

@@ -1,11 +1,11 @@
 import React from "react";
-import "../../../../../resources/css/HomeContent.css";
-import Layout from "../Layout/Layout";
-import Rating5StarIcon from "../../../../views/UI/Rating5StarIcon";
-import ShopSection from "../../../../views/UI/ShopSection";
+import "../../../../resources/css/HomeContent.css";
+import Layout from "./Layout/Layout";
+import Rating5StarIcon from "../../../views/UI/Rating5StarIcon";
+import ShopSection from "../../../views/UI/ShopSection";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay,Navigation, Pagination } from 'swiper/modules';
-import ProductCardList from "../../../../views/UI/ProductCardList";
+import ProductCardList from "../../../views/UI/ProductCardList";
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -17,17 +17,17 @@ export default function Home(){
   ];
   return (
  <Layout>
-  <div className="content-wrapper">
+
       <Carousel banners={banners}/>
       <Categories/>
       <Recommend />
-  </div>
+  
   </Layout>);
 }
 
 function Recommend(){
   return (
-        <ProductCardList title={"Đề Cử Cho Bạn"} total={42}/>
+        <ProductCardList total={42}/>
   );
 }
 function Rating(){

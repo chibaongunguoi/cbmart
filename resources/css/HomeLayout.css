@@ -137,3 +137,11 @@
     top: -1.75rem;
     left: 1rem; 
 }
+.content-wrapper{
+    margin-top: 6.375rem;
+    /* background-color: #fff; */
+    border-radius: .125rem;
+    /* overflow: hidden; */
+    /* overflow: visible; */
+    padding: 30px 0px 0px 0px;
+}

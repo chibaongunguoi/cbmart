@@ -9,6 +9,10 @@ class ProductController extends Controller
 {
     function index(Request $request)
     {
-        return Inertia::render('Home/Shop/Product');
+        return Inertia::render('Home/Product/Home');
+    }
+    function list(Request $request)
+    {
+        return Inertia::render('Home/Product/List');
     }
 }

@@ -15,15 +15,7 @@ a,a:hover{
 ul{
     list-style: none;
 }
-.content-wrapper{
-    margin-top: 6.375rem;
-    /* background-color: #fff; */
-    border-radius: .125rem;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
-    /* overflow: hidden; */
-    /* overflow: visible; */
-    padding: 30px 0px 0px 0px;
-}
+
 .swiper-wrapper{ 
     line-height: 1.25;
     height: 400px; 
@@ -76,6 +68,7 @@ body {
     transition-timing-function: var(--swiper-wrapper-transition-timing-function,initial);
     width: 100%;
     z-index: 1;
+    margin-top:30px;
 }
 .swiper-slide img {
   display: block;
@@ -162,6 +155,7 @@ body {
     font-size: 1rem;
     padding: 1.5rem 0 4rem;
     border-top: 2px solid lightslategray;
+    
 }
 .about-us-wrapper{
     float: left;

@@ -10,7 +10,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 
 Route::get('/', [HomeController::class, 'home']);
-
+Route::get('/login', [HomeController::class, 'login']);
+Route::get('/signup', [HomeController::class, 'signup']);
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/user/list', [AdminUserController::class, 'list']);

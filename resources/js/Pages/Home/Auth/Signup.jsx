@@ -1,9 +1,7 @@
 import React from "react";
 import Layout from "../Layout/Layout";
 import "../../../../../resources/css/Auth.css";
-import 'swiper/css/bundle';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+
 export default function Home(){
   return (
  <Layout>

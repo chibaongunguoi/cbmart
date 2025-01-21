@@ -6,10 +6,6 @@ import Pagination from "../../../../views/UI/Pagination";
 import ProductCardList from "../../../../views/UI/ProductCardList";
 import ProductQtyEdit from "../../../../views/UI/ProductQTyEdit";
 import { useState,useRef,useEffect } from "react";
-
-import 'swiper/css/bundle';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import ShopSection from "../../../../views/UI/ShopSection";
 export default function Home(){
   function renderBCItem(){

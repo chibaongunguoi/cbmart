@@ -83,6 +83,8 @@
     color: #1e71ff;
 }
 .eye-icon-wrapper{
+    cursor: pointer;
+    color: #858b9c;
     width: 24px;
     height: 24px;
     fill: currentcolor;

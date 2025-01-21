@@ -1,14 +1,11 @@
 import React from "react";
 import Layout from "../Layout/Layout";
 import "../../../../../resources/css/Auth.css";
-import 'swiper/css/bundle';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+
 export default function Home(){
   return (
  <Layout>
   <div className="auth-content-wrapper">
-
     <div className="auth-wrapper container">
       <div className="auth-content">
         <div className="auth-title"> 

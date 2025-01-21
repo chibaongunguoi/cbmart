@@ -3,9 +3,7 @@ import Layout from "../Layout/Layout";
 import "../../../../../resources/css/Cart.css";
 import ProductQtyEdit from "../../../../views/UI/ProductQTyEdit";
 
-import 'swiper/css/bundle';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+
 export default function Home(){
   return (
  <Layout>

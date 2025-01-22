@@ -1,5 +1,7 @@
 import React from "react";
+import Notification from "../../../../views/UI/Notification";
 import "../../../../../resources/css/HomeLayout.css";
+import { useState,useRef } from "react";
 export default function Layout({children}){
   return (
     <>
@@ -73,6 +75,16 @@ function Header(){
   );
 }
 function HeaderTop(){
+  let [notiDrop,setNotiDrop]=useState(false);
+  let NotiDropDown=useRef(null);
+function NotiHandleClick(){
+  if(notiDrop==false)
+    {NotiDropDown.current.style.display='block';}
+  else{
+      NotiDropDown.current.style.display='none';
+  }
+  setNotiDrop(!notiDrop);
+}
 return (
   <div className="navbar-wrapper">
     <nav className="container navbar">
@@ -81,7 +93,12 @@ return (
       </div>
       <ul className="navbar-links">
         <li className="navbar-link">Hỗ Trợ</li>
-        <li className="navbar-link"> Thông Báo</li>
+        <li className="navbar-link" onClick={NotiHandleClick}>
+           Thông Báo
+           <div  className="noti-dropdown" ref={NotiDropDown}>
+              <Notification/>
+           </div>
+           </li>
         <li className="navbar-link"> Đăng Nhập</li>
         <li className="navbar-link"> Đăng Kí</li>
       </ul>

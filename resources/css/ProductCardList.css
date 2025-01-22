@@ -15,12 +15,7 @@
 }
 .card-product-li:hover{
   border: 1px solid red !important;
-  --tw-shadow: 0 1px 20px 0 rgba(0,0,0,.05);
-  --tw-shadow-colored: 0 1px 20px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow);
-  --tw-border-opacity: 1;
   border-color: rgba(238,77,45,1);
-  --tw-translate-y: -1px;
   transform: translate(0px,-1px) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
   z-index: 1;
   transition-duration: .1s;
@@ -44,11 +39,11 @@
   font-size: 14px;
   height: 36px;
   line-height: 18px;
-  -webkit-box-orient: vertical;
   display: -webkit-box;
-  overflow: hidden;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 .card-product-price-wrapper{
   display: flex;

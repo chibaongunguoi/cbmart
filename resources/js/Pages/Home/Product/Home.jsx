@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "../Layout/Layout";
 import "../../../../../resources/css/Product.css";
 import Rating5StarIcon from "../../../../views/UI/Rating5StarIcon";
-import Pagination from "../../../../views/UI/Pagination";
 import ProductCardList from "../../../../views/UI/ProductCardList";
 import ProductQtyEdit from "../../../../views/UI/ProductQTyEdit";
 import {ProductSellerInfo} from "../../../../views/UI/ShopInfo";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Pagination.css";
+import "../../css/Pagination.css";
 import { route,routeWithFullURL,changeAttr } from "../../js/helper/helper";
 import { useState } from "react";
 export default function Pagination({pageTotal=20,currentPage=1,record_show_per_page=10}){

@@ -1,5 +1,5 @@
 import React from "react";
-import "./ProductQTyEdit.css"
+import "../../css/ProductQTyEdit.css"
 export default function ProductQtyEdit({currentQty=1,max=1}){
 return (
   <div className="product-qty-wrapper">

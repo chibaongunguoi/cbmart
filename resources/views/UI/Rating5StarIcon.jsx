@@ -1,5 +1,5 @@
 import React from "react";
-import "./Rating5StarIcon.css"
+import "../../css/Rating5StarIcon.css";
 export default function Rating5StarIcon({ratingPoint=4,style={
   fontSize:"1rem"}}){
     function renderStar(){

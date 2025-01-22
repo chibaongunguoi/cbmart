@@ -1,5 +1,5 @@
 import React from "react";
-import "./ShopSection.css"
+import "../../css/ShopSection.css"
 export default function ShopSection({title,children}){
   return (
     <div className="shop-section-wrapper container">

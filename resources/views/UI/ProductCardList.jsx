@@ -1,6 +1,6 @@
 import React from "react";
 import Rating5StarIcon from "./Rating5StarIcon";
-import "./ProductCardList.css";
+import "../../css/ProductCardList.css";
 import ShopSection from "./ShopSection";
 export default function ProductCardList({total=12,title="Gợi Ý Cho Bạn",loadMoreBtn=true}){
   function renderProduct(total){
@@ -27,8 +27,8 @@ function ProductCard(){
   return(
 <div className="card-product-li">
             <a href="card-product-li-content">
-              <div className="card-product-imgage-wrapper">
-                <img className="card-product-imgage" src="https://img.lazcdn.com/g/p/748536eb94b58d36c5cb8f9d976d8996.png_170x170q80.jpg"></img>
+              <div className="card-product-img-wrapper">
+                <img className="card-product-img" src="https://img.lazcdn.com/g/p/748536eb94b58d36c5cb8f9d976d8996.png_170x170q80.jpg"></img>
               </div>
               <div className="card-product-desc">
                 <div className="card-product-name">

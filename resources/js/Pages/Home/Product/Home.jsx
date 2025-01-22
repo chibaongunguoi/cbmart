@@ -5,6 +5,7 @@ import Rating5StarIcon from "../../../../views/UI/Rating5StarIcon";
 import Pagination from "../../../../views/UI/Pagination";
 import ProductCardList from "../../../../views/UI/ProductCardList";
 import ProductQtyEdit from "../../../../views/UI/ProductQTyEdit";
+import {ProductSellerInfo} from "../../../../views/UI/ShopInfo";
 import { useState,useRef,useEffect } from "react";
 import ShopSection from "../../../../views/UI/ShopSection";
 export default function Home(){
@@ -25,33 +26,7 @@ export default function Home(){
         </div>
      </div>
      <ProductImportantInfo/>
-      <div className="seller-wrapper container">
-        <div className="seller">
-          <div className="seller-acc">
-            <a href="" className="seller-acc-img-wrapper">
-              <img width="80" loading="lazy" class="seller-acc-img" srcset="https://down-vn.img.susercontent.com/file/cn-11134216-7r98o-lvy9c93i0aitd5@resize_w80_nl 1x, https://down-vn.img.susercontent.com/file/cn-11134216-7r98o-lvy9c93i0aitd5@resize_w160_nl 2x" src="https://down-vn.img.susercontent.com/file/cn-11134216-7r98o-lvy9c93i0aitd5" alt="click here to visit shop" height="80"/>
-            </a>
-            <div className="seller-acc-info">
-              <div className="seller-acc-name">
-                Nguyễn Chí Bảo
-              </div>
-              <div className="seller-btn-wrapper">
-                <button className="btn seller-watch-btn add-to-cart">
-                  <span className="seller-watch">
-                    Xem Shop
-                  </span> 
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div className="seller-info-wrapper">
-            <SellerInfoContent title={"Đánh Giá"} value={"4.3tr"}/>
-            <SellerInfoContent title={"Tỉ Lệ Phản Hồi"} value={"95%"}/>
-            <SellerInfoContent title={"Sản Phẩm"} value={"5.6k"}/>
-            <SellerInfoContent title={"Người Theo Dõi"} value={432}/>     
-          </div>
-      </div>
+      <ProductSellerInfo/>
 
       <div className="product-des-wrapper container">
         <h2 className="product-des-title ">
@@ -116,6 +91,7 @@ export default function Home(){
   </Layout>
   );
 }
+
 function ProductFromShop(){
   return (
         <ProductCardList title={"Các Sản Phẩm Khác Của Shop"} total={12}/>
@@ -190,19 +166,6 @@ return (
               );
           })}
   </ul>
-);
-}
-
-function SellerInfoContent({title,value}){
-return (
-  <div className="seller-info-content">
-    <div className="seller-info-title">
-      {title}
-    </div>
-    <div className="seller-info-value">
-      {value}
-    </div>
-  </div>
 );
 }
 function ProductImportantInfo(){

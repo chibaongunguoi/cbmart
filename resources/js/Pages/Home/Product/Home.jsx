@@ -4,6 +4,7 @@ import "../../../../../resources/css/Product.css";
 import Rating5StarIcon from "../../../../views/UI/Rating5StarIcon";
 import ProductCardList from "../../../../views/UI/ProductCardList";
 import ProductQtyEdit from "../../../../views/UI/ProductQTyEdit";
+import Pagination from "../../../../views/UI/Pagination";
 import {ProductSellerInfo} from "../../../../views/UI/ShopInfo";
 import { useState,useRef,useEffect } from "react";
 import ShopSection from "../../../../views/UI/ShopSection";

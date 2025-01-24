@@ -1,20 +1,20 @@
 import "../../../../css/AdminPage.css"
 import React from "react";
 import { useState } from "react";
-import Layout from "./../Layout/Layout";
+import Layout from "../Layout/Layout";
 import Pagination from "../../../../views/UI/Pagination";
 import { route,routeWithFullURL } from "../../../helper/helper";
 import { record_show_per_page } from "../../../../../config/config";
 import Notification from "../Ui/Notification";
 import SearchBar from "../Ui/SearchBar";
 import { ActionList } from "../Ui/Form";
-export default function Home({users,count,searchWord,page,status,action_list,type}){
+export default function Home({managers,rolesOfmanagers,count,searchWord,page,status,action_list,type}){
     return (
  <Layout>
-         <UserList users={users}  count={count} searchWord={searchWord} page={page}status={status} action_list={action_list} type={type}/>
+         <UserList managers={managers} rolesOfmanagers={rolesOfmanagers} count={count} searchWord={searchWord} page={page}status={status} action_list={action_list} type={type}/>
   </Layout>);
 }
-function UserList({users,count,searchWord,page,status,action_list,type}){
+function UserList({managers,rolesOfmanagers,count,searchWord,page,status,action_list,type}){
     let pageTotal=parseInt(Math.ceil(count.user/record_show_per_page));
   return (<div id="content" class="container-fluid">
     <div class="card">   
@@ -25,10 +25,10 @@ function UserList({users,count,searchWord,page,status,action_list,type}){
         </div>
         <div class="card-body">
             <div class="analytic">
-                <a href={route("admin/user/list?type=active")} class="text-primary">Thành viên hoạt động <span class="text-muted">({count.userActive})</span></a>
-                <a href={route("admin/user/list?type=trash")} class="text-primary"> Thành viên bị xóa <span class="text-muted">({count.userTrash})</span></a>
+                <a href={route("admin/manager/list?type=active")} class="text-primary">Thành viên hoạt động <span class="text-muted">({count.managerActive})</span></a>
+                <a href={route("admin/manager/list?type=trash")} class="text-primary"> Thành viên bị xóa <span class="text-muted">({count.managerTrash})</span></a>
             </div>
-            <form action={route("admin/user/action")} method=''>
+            <form action={route("admin/manager/action")} method=''>
 
                         <ActionList action_list={action_list}/>
                     
@@ -40,26 +40,33 @@ function UserList({users,count,searchWord,page,status,action_list,type}){
                             </th>
                             <th scope="col">#</th>
                             <th scope="col">Họ tên</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">Mô tả</th>
+                            <th scope="col">Quyền</th>
                             <th scope="col">Ngày tạo</th>
                             <th scope="col">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                        {
-                       users.map((user,index)=>{
+                       managers.map((user,index)=>{
                         return (<tr key={user.id}>
                             <td>
                                 <input type="checkbox" name='list_check[]' value={user.id}/>
                             </td>
                             <th scope="row">{index+1}</th>
                             <td>{user.name}</td>
-                            <td>{user.email}</td>
-            
+                            <td>{user.description}</td>
+                            
+                            <td>
+                                {rolesOfmanagers[user.id].map((role)=>{
+                                    return(<span class='badge badge-warning'>{role.name}</span>)
+                                })}
+                                {/* {rolesOfmanagers[user.id].length<1?<div> Hiện chưa có quyền</div>:null} */}
+                            </td>
                             <td>{user.created_at}</td>
                             <td>
-                                {type=='active'?<a href={route("admin/user/edit?id="+user.id)} class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>:""}
-                                <a href={route("admin/user/delete?id="+user.id)} onclick="return confirm('Bạn có chắc chắn xóa bản ghi này?')" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>     
+                                {type=='active'?<a href={route("admin/manager/edit?id="+user.id)} class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>:""}
+                                <a href={route("admin/manager/delete?id="+user.id)} onclick="return confirm('Bạn có chắc chắn xóa bản ghi này?')" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>     
                             </td>
                         </tr>);
                        })}

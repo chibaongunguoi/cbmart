@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Manager;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\PermissionController;
@@ -16,12 +18,19 @@ Route::get('/signup', [HomeController::class, 'signup']);
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/user/list', [AdminUserController::class, 'list']);
-Route::get('/admin/user/add', [AdminUserController::class, 'add']);
-Route::post('/admin/user/store', [AdminUserController::class, 'store']);
 Route::get('/admin/user/delete', [AdminUserController::class, 'delete']);
 Route::post('/admin/user/update', [AdminUserController::class, 'update']);
 Route::get('/admin/user/edit', [AdminUserController::class, 'edit']);
 Route::get('/admin/user/action', [AdminUserController::class, 'action']);
+
+
+Route::get('/admin/manager/list', [ManagerController::class, 'list']);
+Route::get('/admin/manager/add', [ManagerController::class, 'add']);
+Route::post('/admin/manager/store', [ManagerController::class, 'store']);
+Route::get('/admin/manager/delete', [ManagerController::class, 'delete']);
+Route::post('/admin/manager/update', [ManagerController::class, 'update']);
+Route::get('/admin/manager/edit', [ManagerController::class, 'edit']);
+Route::get('/admin/manager/action', [ManagerController::class, 'action']);
 
 
 Route::get('/admin/permission/add', [PermissionController::class, 'add']);

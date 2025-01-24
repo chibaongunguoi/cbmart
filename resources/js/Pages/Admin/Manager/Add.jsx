@@ -14,7 +14,6 @@ function UserAdd({roles}){
     let [form ,setForm]=useState({
         'name':"",
         'username':"",
-        'email':"",
         'password':"",
         'password_confirmation':"",
         'role_id':[]
@@ -24,7 +23,7 @@ function UserAdd({roles}){
     }
     function handleSubmit(e){
         e.preventDefault(); 
-        router.post(route('admin/user/store'),form);
+        router.post(route('admin/manager/store'),form);
     }
     function handleCheck(e){
         return handleRoleList(e.target.value,e.target.checked);
@@ -46,7 +45,7 @@ function UserAdd({roles}){
         </div>
         <div class="card-body">
             <form 
-            //  action={route('admin/user/store')}
+            //  action={route('admin/manager/store')}
             onSubmit={handleSubmit}
               method="POST">
                 {csrf}
@@ -59,11 +58,6 @@ function UserAdd({roles}){
                     <label for="username">Username</label>
                     <input value={form.username}class="form-control" type="text" name="username" id="username"onChange={handleChange}/>
                     {errors.username && <small className="text-danger">{errors.username}</small>}
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input value={form.email}class="form-control" type="text" name="email" id="email"onChange={handleChange}/>
-                    {errors.email && <small className="text-danger">{errors.email}</small>}
                 </div>
                 <div class="form-group">
                     <label for="password">Mật khẩu</label>
@@ -90,7 +84,7 @@ function UserAdd({roles}){
                         </div>
                     </div>
                 </div>
-                <button name='btn_add' value='user_add' type="submit" class="btn btn-primary">Thêm mới</button>
+                <button name='btn_add' value='manager_add' type="submit" class="btn btn-primary">Thêm mới</button>
             </form>
         </div>
     </div>

@@ -66,6 +66,19 @@ export default function SideBar(){
                     <li><a href={route('admin/order/list')}>Đơn hàng</a></li>
                 </ul>
             </li>
+            <li class="nav-link {{$module_active=='manager'?'active':''}}">
+                <a href={route("admin/manager/list?type=active")}>
+                    <div class="nav-link-icon d-inline-flex">
+                        <i class="far fa-folder"></i>
+                    </div>
+                    managers
+                </a>
+                <i class="arrow fas fa-angle-right"></i>
+                <ul class="sub-menu">
+                    <li><a href={route('admin/manager/add')}>Thêm mới</a></li>
+                    <li><a href={route('admin/manager/list')}>Danh sách</a></li>
+                </ul>
+            </li>
             <li class="nav-link {{$module_active=='user'?'active':''}}">
                 <a href={route("admin/user/list?type=active")}>
                     <div class="nav-link-icon d-inline-flex">
@@ -74,7 +87,6 @@ export default function SideBar(){
                     Users
                 </a>
                 <i class="arrow fas fa-angle-right"></i>
-
                 <ul class="sub-menu">
                     <li><a href={route('admin/user/add')}>Thêm mới</a></li>
                     <li><a href={route('admin/user/list')}>Danh sách</a></li>

@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 
 
-use App\Models\Role;
 use App\Models\User;
+use Inertia\Controller;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
 {
-    // function __construct()
-    // {
-    //     return session(['type' => 'active']);
-    // }
     function list(Request $request)
     {
         $status = session('status');
@@ -42,48 +38,7 @@ class AdminUserController extends Controller
         ];
         $count['user'] = $users->count();
         $users = $users->limit($record_per_page)->offset($record_per_page * ($page - 1))->get();
-        $rolesOfUsers = [];
-        foreach ($users as $user) {
-            $rolesOfUsers[$user->id] = $user->Roles;
-        }
-        return inertia::render("Admin/User/List", compact('users', 'rolesOfUsers', 'count', 'searchWord', 'page', 'status', "action_list", 'type'));
-    }
-    function add()
-    {
-        $roles = Role::all();
-        return Inertia::render('Admin/User/Add', compact('roles'));
-    }
-    function store(Request $request)
-    {
-        $validation = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => [
-                'required',
-                'confirmed',
-                'min:8',
-                'string',
-            ]
-        ], [
-            'required' => ':attribute không được để trống',
-            'min' => ':attribute có độ dài ít nhất :min ký tự',
-            'max' => ':attribute có độ dài tối đa :max ký tự',
-            'confirmed' => 'Mật khẩu xác nhận không trùng khớp',
-        ], [
-            'name' => 'Tên người dùng',
-            'username' => 'Username',
-            'email' => 'Email',
-            'password' => 'Mật khẩu'
-        ]);
-        $user = User::create([
-            "name" => $request->name,
-            "username" => $request->name,
-            "email" => $request->email,
-            "password" => bcrypt($request->password),
-        ]);
-        $user->Roles()->attach($request->role_id);
-        return redirect('admin/user/list?type=active')->with('status', 'Đã thêm thành viên thành công');
+        return inertia::render("Admin/User/List", compact('users', 'count', 'searchWord', 'page', 'status', "action_list", 'type'));
     }
     function delete(Request $request)
     {
@@ -113,15 +68,13 @@ class AdminUserController extends Controller
             'email' => 'Email',
         ]);
         $user->update(['name' => $request->input('name'), 'email' => $request->input('email')]);
-        $user->Roles()->sync($request->input('role_id', []));
+        // $user->Roles()->sync($request->input('role_id', []));
         return redirect('admin/user/list?type=active')->with('status', 'Đã cập nhập thành viên thành công');
     }
     function edit(Request $request)
     {
-        $roles = Role::all();
         $user = User::find($request->input('id'));
-        $currentRoles = $user->Roles()->get()->pluck('id')->toArray();
-        return Inertia::render('Admin/User/Edit', compact('user', 'roles', 'currentRoles'));
+        return Inertia::render('Admin/User/Edit', compact('user'));
     }
     function action(Request $request)
     {

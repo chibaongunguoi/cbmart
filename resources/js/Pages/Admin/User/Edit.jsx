@@ -3,20 +3,18 @@ import Layout from "../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import { usePage,router } from "@inertiajs/react";
 import { useState} from "react";
-export default function Home({user,roles,currentRoles}){
+export default function Home({user}){
   return (
  <Layout>
-  <UserUpdate user={user} roles={roles} currentRoles={currentRoles}/>
+  <UserUpdate user={user}/>
   </Layout>);
 }   
 
-
-function UserUpdate({user,roles,currentRoles}){
+function UserUpdate({user}){
     const { errors } = usePage().props
     let [form ,setForm]=useState({
         'name':user.name,
         'email':user.email,
-        'role_id':currentRoles
 
 })
 function handleCheck(e){
@@ -59,23 +57,6 @@ function handleRoleList(id,checked){
                         <label for="email">Email</label>
                         <input value={form.email}class="form-control" type="text" name="email" id="email"onChange={handleChange}/>
                         {errors.email && <small className="text-danger">{errors.email}</small>}
-                    </div>
-                    <div class="card my-4 border">
-                        <div class="card-header">
-                            {/* <!-- <input type="checkbox" class="check-all" name="" id="roles"> --> */}
-                            <label for="roles" class="m-0">Vai trò trong hệ thống</label>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                            {roles.map((role)=>{
-                                    return (<div class="col-md-12">
-                                        <input defaultChecked={currentRoles.indexOf(role.id)==-1?false:true} type="checkbox" class="role" value={role.id}name="role_id[]" id={role.id}onChange={handleCheck}/>
-                                        <label for={role.id}>{role.name}</label>
-                                    </div>);
-                                })}
-                                {roles.length<1?<div>Không có vai trò </div>:null}
-                            </div>
-                        </div>
                     </div>
                     <button name='btn_add' value='user_add' type="submit" class="btn btn-primary">Cập nhập</button>
                 </form>

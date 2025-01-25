@@ -4,19 +4,13 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     function home()
     {
-        return Inertia::render('Home/Home');
-    }
-    function login()
-    {
-        return Inertia::render('Home/Auth/Login');
-    }
-    function signup()
-    {
-        return Inertia::render('Home/Auth/Signup');
+        $name = Auth::user()->username;
+        return Inertia::render('Home/Home', compact("name"));
     }
 }

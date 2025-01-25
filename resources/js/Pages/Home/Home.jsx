@@ -9,7 +9,7 @@ import ProductCardList from "../../../views/UI/ProductCardList";
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-export default function Home(){
+export default function Home({name="no user"}){
   let banners=["https://img.lazcdn.com/us/domino/e6481fd6-fe15-4ea3-9150-9540024b23bd_VN-1976-688.jpg_2200x2200q80.jpg",
     "https://img.lazcdn.com/us/domino/5fcb09af-3260-4abc-919f-829816d460ce_VN-1976-688.jpg_2200x2200q80.jpg",
     "https://img.lazcdn.com/us/domino/485a6f12-386c-4d1e-a28f-4a6c15c580c3_VN-1976-688.jpg_2200x2200q80.jpg",
@@ -20,6 +20,7 @@ export default function Home(){
       <div className="home-carousel-wrapper container">
       <Carousel banners={banners}/>
       </div>
+      {name}
       <Categories/>
       <Recommend />
   

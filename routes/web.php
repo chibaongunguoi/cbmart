@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Manager;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -11,10 +10,28 @@ use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\AuthController;
 
-Route::get('/', [HomeController::class, 'home']);
-Route::get('/login', [HomeController::class, 'login']);
-Route::get('/signup', [HomeController::class, 'signup']);
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+Route::get('/email/verify', [AuthController::class, 'login'])
+    ->name('verification.notice');
+
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+Route::get('/', [HomeController::class, 'home'])
+    // ->middleware(['auth', 'verified']);
+;
+Route::get('/login', [AuthController::class, 'login'])->name("login");
+Route::get('/signup', [AuthController::class, 'signup']);
+Route::post('/login', [AuthController::class, 'checkLogin']);
+Route::post('/signup', [AuthController::class, 'storeSignup']);
+
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/user/list', [AdminUserController::class, 'list']);

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { csrf } from "../../js/helper/helper";
 export default function AuthForm({title="Đăng nhập",children}){
   return (
     <div className="auth-wrapper container">
@@ -9,9 +10,8 @@ export default function AuthForm({title="Đăng nhập",children}){
         </div>
         <div className="auth-form-wrapper">
           {children}
-          <button className="auth-button">
-            {title}
-          </button>
+          
+          
         </div>
         <div className="auth-other-way">
           Bạn chưa có tài khoản?
@@ -24,30 +24,41 @@ export default function AuthForm({title="Đăng nhập",children}){
 export function LoginForm(){
 return (
   <AuthForm>
-    <AuthTextInput name={"username"} title={"Tên đăng nhập"}/>
+    <form action="" className="login-form" method="POST" >
+    {csrf}
+    <AuthTextInput name={"username"} title={"Tên đăng nhập"} defaultValue={"chibaongunguoi"}/>
     <AuthPasswordInput/>
     <div className="auth-forget-password">
         Quên mật khẩu?
     </div>
-    
+    <button className="auth-button">
+      Đăng nhập
+    </button>
+    </form>
+
   </AuthForm>
 );
 }
 export function SignUpForm(){
   return (
     <AuthForm title="Đăng kí">
-      <AuthTextInput name={"name"} title={"Họ và Tên"}/>
-      <AuthTextInput name={"email"} title={"Email"}/>
-      <AuthTextInput name={"username"} title={"Tên đăng nhập"}/>
-      <AuthTextInput name={"phone_number"} title={"Số điện thoại"}/>
+      <form action="" className="signup-form" method="POST" >
+        {csrf}
+      <AuthTextInput name={"name"} title={"Họ và Tên"} defaultValue={"Bảo"}/>
+      <AuthTextInput name={"email"} title={"Email"} defaultValue={"chibaongunguoi@gmail.com"}/>
+      <AuthTextInput name={"username"} title={"Tên đăng nhập"} defaultValue={"chibaongunguoi"}/>
       <AuthPasswordInput/>
+      <button className="auth-button">
+      Đăng kí
+        </button>
+      </form>
     </AuthForm>
   );
   }
-function AuthTextInput({name="",title=""}){
+function AuthTextInput({name="",title="",defaultValue=""}){
     return(
     <div className="auth-input-wrapper">
-            <input name={name} type="text" placeholder={`${title}`} class="auth-input" defaultValue=""/>
+            <input name={name} type="text" placeholder={`${title}`} class="auth-input" defaultValue={defaultValue}/>
         </div>
     );
 }
@@ -58,7 +69,7 @@ function AuthPasswordInput({name="password",title="Mật khẩu"}){
     }
     return(
     <div className="auth-input-wrapper">
-        <input name={name} type="password" placeholder={`${title}`} class="auth-input" defaultValue=""/>
+        <input name={name} type="password" placeholder={`${title}`} class="auth-input" defaultValue={"chibaongunguoi"}/>
         <div className="hide-show-icon-wrapper">
           <div className="eye-icon-wrapper" onClick={Eyeclicked}>
            {eyestate==false?<EyeClose/>:<EyeOpen/>}            

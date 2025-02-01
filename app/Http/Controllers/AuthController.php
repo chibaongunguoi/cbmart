@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Mail\EmailVerifyMail;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
@@ -33,9 +36,14 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+
+        session(['user' => $user]);
+        // User::find($user->id)->delete();
+        // $user->forceDelete();
         event(new Registered($user));
         Auth::login($user);
-        return redirect("/");
+        // Auth::login($user);
+        return redirect("email_verify");
     }
     function checkLogin(Request $request)
     {
@@ -48,5 +56,29 @@ class AuthController extends Controller
             return redirect("/");
         }
         return Inertia::render('Home/Auth/Login');
+    }
+    function emailVerify()
+    {
+        return Inertia::render('Home/Auth/EmailVerify');
+    }
+    function sendEmailVerifyMail()
+    {
+        $user = session('user');
+        $token = 1241;
+        $user->update(['remember_token' => bcrypt($token)]);
+        // dd($user->remember_token);
+        Mail::to('chibaongunguoi@gmail.com')
+            ->send(new EmailVerifyMail($token));
+        return redirect("email_verify");
+    }
+    function storeEmailVerify(Request $request)
+    {
+        $token = $request->input('token');
+        $user = session('user');
+        if (bcrypt($token) == $user->remember_token) {
+            $user->markEmailAsVerified();
+            event(new Verified($user));
+        }
+        return redirect("/");
     }
 }

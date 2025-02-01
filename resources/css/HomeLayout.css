@@ -23,7 +23,7 @@
     height: 2.125rem;
     position: relative;
     z-index: 400;
-    color:#fff;
+    /* color:#fff !important; */
 }
 .navbar-links{
     display: flex;
@@ -31,11 +31,15 @@
     list-style: none;
     margin:0;
     padding: 0;
+    
 }
-.navbar-link{
+.navbar-link-wrapper{
     cursor: pointer;
     padding: 0rem 0.625rem;
-    font-size: 1.125rem;
+    font-size: 1.125rem;  
+}
+.navbar-link{
+    color:#fff;
 }
 .noti-dropdown{
     display: none;

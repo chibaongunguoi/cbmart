@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
@@ -9,19 +11,20 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\PermissionController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-Route::get('/email/verify', [AuthController::class, 'login'])
-    ->name('verification.notice');
 
+Route::get('/send_email_verify', [AuthController::class, 'sendEmailVerifyMail']);
+Route::get('/email_verify', [AuthController::class, 'emailVerify'])
+    ->name('verification.notice');
+Route::post('/email_verify', [AuthController::class, 'storeEmailVerify']);
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+})->middleware(['signed'])->name('verification.verify');
 
 
 Route::get('/', [HomeController::class, 'home'])

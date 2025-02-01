@@ -92,15 +92,21 @@ return (
         Kênh người bán
       </div>
       <ul className="navbar-links">
-        <li className="navbar-link">Hỗ Trợ</li>
-        <li className="navbar-link" onClick={NotiHandleClick}>
+        <li className="navbar-link-wrapper">
+          <a className="navbar-link" href="/help">Hỗ Trợ</a>
+          </li>
+        <li className="navbar-link-wrapper navbar-link" onClick={NotiHandleClick}>
            Thông Báo
            <div  className="noti-dropdown" ref={NotiDropDown}>
               <Notification/>
            </div>
            </li>
-        <li className="navbar-link"> Đăng Nhập</li>
-        <li className="navbar-link"> Đăng Kí</li>
+        <li className="navbar-link-wrapper"> 
+          <a className="navbar-link" href="login">Đăng Nhập</a> 
+          </li>
+        <li className="navbar-link-wrapper">
+          <a className="navbar-link" href="signup">Đăng Kí</a> 
+        </li>
       </ul>
     </nav>
   </div>

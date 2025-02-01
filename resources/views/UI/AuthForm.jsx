@@ -9,17 +9,51 @@ export default function AuthForm({title="Đăng nhập",children}){
           {title}
         </div>
         <div className="auth-form-wrapper">
-          {children}
-          
-          
+          {children}   
         </div>
-        <div className="auth-other-way">
-          Bạn chưa có tài khoản?
-          <a href="" className="auth-other-link">{title=="Đăng nhập"?"Đăng kí":"Đăng nhập"}</a>
-        </div>
+        <SubInfo title={title}/>
       </div>
     </div>
   );
+} 
+function SubInfo({title}){
+  if (title=="Đăng nhập"||title=="Đăng kí"){
+  return (
+    <div className="auth-other-way">
+          Bạn chưa có tài khoản?
+          <a href="" className="auth-other-link">{title=="Đăng nhập"?"Đăng kí":"Đăng nhập"}</a>
+        </div>
+  );}
+}
+export function EmailVerifyForm(){
+  
+  return (
+    <AuthForm title="Xác thực địa chỉ Email">
+      <div className="email-verify-noti">
+        Chúng tôi đã gửi mã xác thực đến 
+        <div className="email-title">chibaongunguoi@gmail.com</div>
+      </div>
+      <form action="" className="email-verify-form" method="POST" >
+      {csrf}
+      <AuthEmailVerifyInput/>
+      <button className="auth-button">
+        Tiếp tục
+      </button>
+      </form>
+    </AuthForm>
+  );
+  }  
+  function AuthEmailVerifyInput({name="token",title="Nhập mã"}){
+    return(
+    <div className="auth-input-wrapper">
+        <input name={name} type="number" placeholder={`${title}`} class="auth-input" defaultValue={"chibaongunguoi"}/>
+        <div className="resend-wrapper">
+          <div className="resend-title" >
+           Gửi lại mã        
+          </div>
+        </div>
+      </div>
+    );
 }
 export function LoginForm(){
 return (
@@ -69,7 +103,7 @@ function AuthPasswordInput({name="password",title="Mật khẩu"}){
     }
     return(
     <div className="auth-input-wrapper">
-        <input name={name} type="password" placeholder={`${title}`} class="auth-input" defaultValue={"chibaongunguoi"}/>
+        <input name={name} type={eyestate==false?"password":"text"} placeholder={`${title}`} class="auth-input" defaultValue={"chibaongunguoi"}/>
         <div className="hide-show-icon-wrapper">
           <div className="eye-icon-wrapper" onClick={Eyeclicked}>
            {eyestate==false?<EyeClose/>:<EyeOpen/>}            

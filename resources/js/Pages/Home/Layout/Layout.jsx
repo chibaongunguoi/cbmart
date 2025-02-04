@@ -2,6 +2,7 @@ import React from "react";
 import Notification from "../../../../views/UI/Notification";
 import "../../../../../resources/css/HomeLayout.css";
 import { useState,useRef } from "react";
+import { route } from "../../../helper/helper";
 export default function Layout({children}){
   return (
     <>
@@ -88,12 +89,14 @@ function NotiHandleClick(){
 return (
   <div className="navbar-wrapper">
     <nav className="container navbar">
-      <div className="navbar-link">
+      <div className="navbar-link-wrapper">
+      <a className="navbar-link">
         Kênh người bán
+      </a>
       </div>
       <ul className="navbar-links">
         <li className="navbar-link-wrapper">
-          <a className="navbar-link" href="/help">Hỗ Trợ</a>
+          <a className="navbar-link" href={route('help')}>Hỗ Trợ</a>
           </li>
         <li className="navbar-link-wrapper navbar-link" onClick={NotiHandleClick}>
            Thông Báo
@@ -102,10 +105,10 @@ return (
            </div>
            </li>
         <li className="navbar-link-wrapper"> 
-          <a className="navbar-link" href="login">Đăng Nhập</a> 
+          <a className="navbar-link" href={route('login')}>Đăng Nhập</a> 
           </li>
         <li className="navbar-link-wrapper">
-          <a className="navbar-link" href="signup">Đăng Kí</a> 
+          <a className="navbar-link" href={route('signup')}>Đăng Kí</a> 
         </li>
       </ul>
     </nav>

@@ -31,6 +31,7 @@ Route::get('/', [HomeController::class, 'home'])
     // ->middleware(['auth', 'verified']);
 ;
 Route::get('/login', [AuthController::class, 'login'])->name("login");
+Route::get('/login/recover', [AuthController::class, 'recover']);
 Route::get('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'checkLogin']);
 Route::post('/signup', [AuthController::class, 'storeSignup']);

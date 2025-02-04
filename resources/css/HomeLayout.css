@@ -18,6 +18,9 @@
     padding:0;
     width: 1200px;
 }
+.navbar{
+    padding-top: 5px;
+}
 .navbar-wrapper{
     background: transparent;
     height: 2.125rem;

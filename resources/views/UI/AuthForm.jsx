@@ -26,7 +26,6 @@ function SubInfo({title}){
   );}
 }
 export function EmailVerifyForm(){
-  
   return (
     <AuthForm title="Xác thực địa chỉ Email">
       <div className="email-verify-noti">

@@ -10,7 +10,10 @@ class HomeController extends Controller
 {
     function home()
     {
-        // $name = Auth::user()->username;
-        return Inertia::render('Home/Home',);
+        $name = "no name";
+        if (Auth::user()) {
+            $name = Auth::user()->username;
+        }
+        return Inertia::render('Home/Home', compact('name'));
     }
 }

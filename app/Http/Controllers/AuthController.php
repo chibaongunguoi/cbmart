@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Mail\EmailVerifyMail;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 
@@ -17,33 +18,24 @@ class AuthController extends Controller
     {
         return Inertia::render('Home/Auth/Login');
     }
+    function recover()
+    {
+        return Inertia::render('Home/Auth/Recover');
+    }
     function signup()
     {
         return Inertia::render('Home/Auth/Signup');
     }
     function storeSignup(Request $request)
     {
-        $request->validate([
+        $user = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'password' => ['required'],
         ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
         session(['user' => $user]);
-        // User::find($user->id)->delete();
-        // $user->forceDelete();
-        event(new Registered($user));
-        Auth::login($user);
-        // Auth::login($user);
-        return redirect("email_verify");
+        return redirect('send_email_verify');
     }
     function checkLogin(Request $request)
     {
@@ -63,9 +55,8 @@ class AuthController extends Controller
     }
     function sendEmailVerifyMail()
     {
-        $user = session('user');
-        $token = 1241;
-        $user->update(['remember_token' => bcrypt($token)]);
+        $token = rand(100000, 999999);
+        session(['token' => bcrypt($token)]);
         // dd($user->remember_token);
         Mail::to('chibaongunguoi@gmail.com')
             ->send(new EmailVerifyMail($token));
@@ -74,10 +65,11 @@ class AuthController extends Controller
     function storeEmailVerify(Request $request)
     {
         $token = $request->input('token');
-        $user = session('user');
-        if (bcrypt($token) == $user->remember_token) {
-            $user->markEmailAsVerified();
-            event(new Verified($user));
+        if (Hash::check($token, session('token'))) {
+            $user = session('user');
+            $user['email_verified_at'] = now();
+            $user = User::create($user);
+            Auth::login($user);
         }
         return redirect("/");
     }

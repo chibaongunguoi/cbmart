@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { csrf } from "../../js/helper/helper";
+import { csrf,route } from "../../js/helper/helper";
 export default function AuthForm({title="Đăng nhập",children}){
   return (
     <div className="auth-wrapper container">
@@ -20,11 +20,49 @@ function SubInfo({title}){
   if (title=="Đăng nhập"||title=="Đăng kí"){
   return (
     <div className="auth-other-way">
-          Bạn chưa có tài khoản?
-          <a href="" className="auth-other-link">{title=="Đăng nhập"?"Đăng kí":"Đăng nhập"}</a>
+         
+          {title=="Đăng nhập"?
+          <>
+          <div className="auth-other-ask"> Bạn chưa có tài khoản?</div><a href={route('signup')} className="auth-other-link">Đăng kí</a>
+          </>
+          :<>
+          <div className="auth-other-ask"> Bạn đã có tài khoản?</div><a href={route('login')} className="auth-other-link">Đăng nhập</a>
+          </>}   
         </div>
   );}
 }
+export function EmailFindForm(){
+  return (
+    <AuthForm title="Tìm tài khoản của bạn">
+      <div className="email-verify-noti">
+        Vui lòng nhập email để tìm kiếm tài khoản của bạn 
+      </div>
+      <form action="" className="email-verify-form" method="POST" >
+      {csrf}
+      <AuthTextInput name={"email"} title={"Email"} defaultValue={"chibaongunguoi@gmail.com"}/>
+      <button className="auth-button">
+        Tiếp tục
+      </button>
+      </form>
+    </AuthForm>
+  );
+  } 
+  export function ResetPasswordForm(){
+    return (
+      <AuthForm title="Đặt lại mật khẩu">
+        <div className="email-verify-noti">
+          Vui lòng nhập mật khẩu mới cho tài khoản của bạn
+        </div>
+        <form action="" className="email-verify-form" method="POST" >
+        {csrf}
+        <AuthPasswordInput/>
+        <button className="auth-button">
+          Tiếp tục
+        </button>
+        </form>
+      </AuthForm>
+    );
+    } 
 export function EmailVerifyForm(){
   return (
     <AuthForm title="Xác thực địa chỉ Email">
@@ -34,7 +72,7 @@ export function EmailVerifyForm(){
       </div>
       <form action="" className="email-verify-form" method="POST" >
       {csrf}
-      <AuthEmailVerifyInput/>
+      <AuthTextInput name={"token"} title={"Nhập mã"} />
       <button className="auth-button">
         Tiếp tục
       </button>
@@ -61,14 +99,15 @@ return (
     {csrf}
     <AuthTextInput name={"username"} title={"Tên đăng nhập"} defaultValue={"chibaongunguoi"}/>
     <AuthPasswordInput/>
-    <div className="auth-forget-password">
+    <div className="auth-forget-password-wrapper">
+        <a href={route('recover')} className="auth-forget-password">
         Quên mật khẩu?
+          </a>
     </div>
     <button className="auth-button">
       Đăng nhập
     </button>
     </form>
-
   </AuthForm>
 );
 }

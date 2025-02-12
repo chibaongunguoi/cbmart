@@ -52,16 +52,17 @@
     margin-top: 24px;
 
 }
-
+.auth-forget-password-wrapper{
+display: flex;
+justify-content: flex-end;
+}
 .auth-forget-password{
     color: #1e71ff;
-    cursor: pointer;
     margin-top: 6px;
     text-align: right;
-
 }
 .auth-button{
-    margin-top: 20px;
+    margin-top: 15px;
     width: 100%;
     border-radius: 6px;
     background: #f57224;
@@ -80,6 +81,9 @@
 .auth-other-way{
     color: #858b9c;
     margin-top: 12px;
+}
+.auth-other-ask{
+    display:inline-block;
 }
 .auth-other-link{
     color: #1e71ff;

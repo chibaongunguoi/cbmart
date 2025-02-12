@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 Route::get('/send_email_verify', [AuthController::class, 'sendEmailVerifyMail']);
+Route::get('/send_recover_password', [AuthController::class, 'sendRecoverPasswordMail']);
 Route::get('/email_verify', [AuthController::class, 'emailVerify'])
     ->name('verification.notice');
 Route::post('/email_verify', [AuthController::class, 'storeEmailVerify']);
@@ -31,7 +32,10 @@ Route::get('/', [HomeController::class, 'home'])
     // ->middleware(['auth', 'verified']);
 ;
 Route::get('/login', [AuthController::class, 'login'])->name("login");
-Route::get('/login/recover', [AuthController::class, 'recover']);
+Route::get('/recover', [AuthController::class, 'recover']);
+Route::post('/recover', [AuthController::class, 'stoteRecover']);
+Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword']);
+Route::post('/reset-password/{token}', [AuthController::class, 'storeResetPassword']);
 Route::get('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'checkLogin']);
 Route::post('/signup', [AuthController::class, 'storeSignup']);

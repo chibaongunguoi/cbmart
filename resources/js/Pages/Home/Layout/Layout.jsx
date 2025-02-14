@@ -83,6 +83,16 @@ function NotiHandleClick(){
       NotiDropDown.current.style.display='none';
   }
   setNotiDrop(!notiDrop);
+};
+ let [userDrop,setUserDrop]=useState(false);
+let UserDropDown=useRef(null);
+function UserHandleClick(){
+if(userDrop==false)
+  {UserDropDown.current.style.display='block';}
+else{
+    UserDropDown.current.style.display='none';
+}
+setUserDrop(!userDrop);
 }
 return (
   <div className="navbar-wrapper">
@@ -97,19 +107,44 @@ return (
           <a className="navbar-link" href={route('help')}>Hỗ Trợ</a>
           </li>
         <li className="navbar-link-wrapper navbar-link" onClick={NotiHandleClick}>
-           Thông Báo
+        <a className="navbar-link">Thông Báo</a> 
            <div  className="noti-dropdown" ref={NotiDropDown}>
               <Notification/>
            </div>
            </li>
         {/* <AuthNavLinks/> */}
-        <li className="navbar-link-wrapper"> 
-          <a className="navbar-link" href={route('user/profile')}>Nguyễn Chí Bảo</a> 
+
+      <li className="navbar-link-wrapper"onClick={UserHandleClick}> 
+        <a className="navbar-link">Nguyễn Chí Bảo</a> 
+          <div className="noti-dropdown" ref={UserDropDown} style={{display:'none'}}> 
+         <User/>     
+          
+          </div>
         </li>
+
       </ul>
     </nav>
   </div>
 )
+}
+function User(){
+  return (
+    <div className="user-content-wrapper">
+    <div className="user-item-list">
+      <UserDropDownItem title={'tài khoản của tôi'}link={route('user/profile')}/>
+      <UserDropDownItem title={'đăng xuất'} link={route('/logout')}/>
+    </div>
+  </div>
+  );
+}
+function UserDropDownItem({title="tiêu đề",link=""}){
+return (
+  <div className="user-item">
+                <a className="user-item-title" href={link}>
+                {title}
+                </a>  
+              </div>
+);
 }
 function AuthNavLinks(){
   return (

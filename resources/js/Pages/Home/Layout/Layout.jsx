@@ -117,8 +117,7 @@ return (
       <li className="navbar-link-wrapper"onClick={UserHandleClick}> 
         <a className="navbar-link">Nguyễn Chí Bảo</a> 
           <div className="noti-dropdown" ref={UserDropDown} style={{display:'none'}}> 
-         <User/>     
-          
+         <UserDropdown/>     
           </div>
         </li>
 
@@ -127,7 +126,7 @@ return (
   </div>
 )
 }
-function User(){
+function UserDropdown(){
   return (
     <div className="user-content-wrapper">
     <div className="user-item-list">

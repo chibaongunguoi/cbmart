@@ -3,7 +3,7 @@ import Notification from "../../../../views/UI/Notification";
 import "../../../../../resources/css/HomeLayout.css";
 import { useState,useRef } from "react";
 import { route } from "../../../helper/helper";
-export default function Layout({children}){
+export default function Layout({children,user}){
   return (
     <>
   <div id="warpper" class="nav-fixed">
@@ -56,9 +56,7 @@ function Footer(){
             <ul className="footer-content-card-payment">
               <li className="footer-payment-wrapper">
                 <img className="payment-icon" src="public/img/Home/Home/momo_logo.png" alt="" />
-              </li>
-              
-              
+              </li>   
           </ul>  
         </div>
       </div>
@@ -104,16 +102,26 @@ return (
               <Notification/>
            </div>
            </li>
+        {/* <AuthNavLinks/> */}
         <li className="navbar-link-wrapper"> 
-          <a className="navbar-link" href={route('login')}>Đăng Nhập</a> 
-          </li>
-        <li className="navbar-link-wrapper">
-          <a className="navbar-link" href={route('signup')}>Đăng Kí</a> 
+          <a className="navbar-link" href={route('user/profile')}>Nguyễn Chí Bảo</a> 
         </li>
       </ul>
     </nav>
   </div>
 )
+}
+function AuthNavLinks(){
+  return (
+    <>
+    <li className="navbar-link-wrapper"> 
+          <a className="navbar-link" href={route('login')}>Đăng Nhập</a> 
+          </li>
+        <li className="navbar-link-wrapper">
+          <a className="navbar-link" href={route('signup')}>Đăng Kí</a> 
+        </li>
+        </>
+  );
 }
 function HeaderWithSearch(){
   return (

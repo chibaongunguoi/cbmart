@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminUserController;
 
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -39,6 +40,7 @@ Route::post('/reset-password/{token}', [AuthController::class, 'storeResetPasswo
 Route::get('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'checkLogin']);
 Route::post('/signup', [AuthController::class, 'storeSignup']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
 
 Route::get('/admin', [AdminController::class, 'index']);
@@ -77,4 +79,6 @@ Route::get('/product/list', [ProductController::class, 'list']);
 
 Route::get('/cart', [CartController::class, 'index']);
 
-Route::get('/shop', [UserController::class, 'shop']);
+Route::get('/seller', [UserController::class, 'seller']);
+
+Route::get('/shop', [ShopController::class, 'home']);

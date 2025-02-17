@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { csrf,route } from "../../js/helper/helper";
-export default function AuthForm({title="Đăng nhập",children}){
+export default function AuthForm({title="",children}){
   return (
     <div className="auth-wrapper container">
       <div className="auth-content">
-        <div className="auth-title"> 
+        {title?<div className="auth-title"> 
           {title}
-        </div>
+        </div>:null}
         <div className="auth-form-wrapper">
           {children}   
         </div>
@@ -94,7 +94,7 @@ export function EmailVerifyForm(){
 }
 export function LoginForm(){
 return (
-  <AuthForm>
+  <AuthForm title="Đăng nhập">
     <form action="" className="login-form" method="POST" >
     {csrf}
     <AuthTextInput name={"username"} title={"Tên đăng nhập"} defaultValue={"chibaongunguoi"}/>
@@ -127,7 +127,7 @@ export function SignUpForm(){
     </AuthForm>
   );
   }
-function AuthTextInput({name="",title="",defaultValue=""}){
+export function AuthTextInput({name="",title="",defaultValue=""}){
     return(
     <div className="auth-input-wrapper">
             <input name={name} type="text" placeholder={`${title}`} class="auth-input" defaultValue={defaultValue}/>

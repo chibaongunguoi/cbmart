@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    function Shop()
+    function seller()
     {
-        return Inertia::render('Home/Shop/Home');
+        return Inertia::render('Home/Seller/Home');
     }
 }

@@ -1,9 +1,11 @@
 import React from "react";
+import { usePage } from '@inertiajs/react';
 import Notification from "../../../../views/UI/Notification";
 import "../../../../../resources/css/HomeLayout.css";
 import { useState,useRef } from "react";
 import { route } from "../../../helper/helper";
-export default function Layout({children,user}){
+import { csrf } from "../../../helper/helper";
+export default function Layout({children}){
   return (
     <>
   <div id="warpper" class="nav-fixed">
@@ -74,6 +76,8 @@ function Header(){
   );
 }
 function HeaderTop(){
+  const { auth } = usePage().props;
+  console.log(auth,1);
   let [notiDrop,setNotiDrop]=useState(false);
   let NotiDropDown=useRef(null);
 function NotiHandleClick(){
@@ -84,16 +88,7 @@ function NotiHandleClick(){
   }
   setNotiDrop(!notiDrop);
 };
- let [userDrop,setUserDrop]=useState(false);
-let UserDropDown=useRef(null);
-function UserHandleClick(){
-if(userDrop==false)
-  {UserDropDown.current.style.display='block';}
-else{
-    UserDropDown.current.style.display='none';
-}
-setUserDrop(!userDrop);
-}
+
 return (
   <div className="navbar-wrapper">
     <nav className="container navbar">
@@ -112,26 +107,38 @@ return (
               <Notification/>
            </div>
            </li>
-        {/* <AuthNavLinks/> */}
-
-      <li className="navbar-link-wrapper"onClick={UserHandleClick}> 
+           {auth.user?<UserNavLink/>:<AuthNavLinks/>}
+      </ul>
+    </nav>
+  </div>
+)
+}
+function UserNavLink(){
+  let [userDrop,setUserDrop]=useState(false);
+  let UserDropDown=useRef(null);
+  function UserHandleClick(){
+  if(userDrop==false)
+    {UserDropDown.current.style.display='block';}
+  else{
+      UserDropDown.current.style.display='none';
+  }
+  setUserDrop(!userDrop);
+  }
+  return (
+    <li className="navbar-link-wrapper"onClick={UserHandleClick}> 
         <a className="navbar-link">Nguyễn Chí Bảo</a> 
           <div className="noti-dropdown" ref={UserDropDown} style={{display:'none'}}> 
          <UserDropdown/>     
           </div>
         </li>
-
-      </ul>
-    </nav>
-  </div>
-)
+  );
 }
 function UserDropdown(){
   return (
     <div className="user-content-wrapper">
     <div className="user-item-list">
       <UserDropDownItem title={'tài khoản của tôi'}link={route('user/profile')}/>
-      <UserDropDownItem title={'đăng xuất'} link={route('/logout')}/>
+      <LogoutItem />
     </div>
   </div>
   );
@@ -145,6 +152,18 @@ return (
               </div>
 );
 }
+function LogoutItem(){
+  return (
+    <div className="logout-item ">
+                    <form action={route('logout')} method="POST">
+                      {csrf}
+                      <button type='submit' className="user-item-title logout-button" >
+                         đăng xuất
+                       </button>  
+                    </form>
+                </div>
+  );
+  }
 function AuthNavLinks(){
   return (
     <>

@@ -2,10 +2,11 @@ import React from "react";
 import SideBar,{SideBarItem} from "../../../../views/UI/SideBar";
 export default function Layout({children}){
   return (
+    <>
   <div id="warpper" class="nav-fixed">
     <Header/>
     <div id="page-body" class="d-flex">
-      <AdminSideBar/>
+      <ShopSideBar/>
       <div id="wp-content">
       <div className="container-fluid py-5">
       {children}
@@ -13,7 +14,7 @@ export default function Layout({children}){
       </div>
     </div>
   </div>
-);
+  </>);
 }
 function Header(){
   return (<nav class="topnav shadow navbar-light bg-white d-flex">
@@ -48,14 +49,12 @@ function Header(){
   </nav>
 );
 }
-function AdminSideBar(){
+function ShopSideBar(){
     return (
         <SideBar>
          <SideBarItem title="Bảng Điều Khiển" functionList={[{'name':'trang chủ','link':'admin'}]} />
-            <SideBarItem title="Trang" functionList={[{'name':'thêm mới','link':'admin/page/add'}]} />
-            <SideBarItem title="Managers" functionList={[{'name':'thêm mới','link':'admin/manager/add'},{'name':'danh sách','link':'admin/manager/list'}]} />
-            <SideBarItem title="Users" functionList={[{'name':'thêm mới','link':'admin/user/add'},{'name':'danh sách','link':'admin/user/list'}]} />
-            <SideBarItem title="Phân Quyền" functionList={[{'name':'quyền','link':'admin/permission/add'},{'name':'thêm vai trò','link':'admin/role/add'},{'name':'danh sách vai trò','link':'admin/role/list'}]} />
+            <SideBarItem title="Quản Lý Sản Phẩm" functionList={[{'name':'thêm sản phẩm ','link':'shop/product/add'},{'name':'tất cả sản phẩm','link':'shop/product/list'}]} />
         </SideBar>
     );
 }
+ 

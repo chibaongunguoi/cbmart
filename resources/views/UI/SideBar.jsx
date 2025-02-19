@@ -1,20 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import { route } from "../../../helper/helper";
-export default function SideBar(){
-    
+import { route } from "../../js/helper/helper";
+export default function SideBar({children}){ 
     return (<div id="sidebar" class="bg-white">
         <ul id="sidebar-menu">
-            <SideBarItem title="Bảng Điều Khiển" functionList={[{'name':'trang chủ','link':'admin'}]} />
-            <SideBarItem title="Trang" functionList={[{'name':'thêm mới','link':'admin/page/add'}]} />
-            <SideBarItem title="Managers" functionList={[{'name':'thêm mới','link':'admin/manager/add'},{'name':'danh sách','link':'admin/manager/list'}]} />
-            <SideBarItem title="Users" functionList={[{'name':'thêm mới','link':'admin/user/add'},{'name':'danh sách','link':'admin/user/list'}]} />
-            <SideBarItem title="Phân Quyền" functionList={[{'name':'quyền','link':'admin/permission/add'},{'name':'thêm vai trò','link':'admin/role/add'},{'name':'danh sách vai trò','link':'admin/role/list'}]} />
+           {children}
         </ul>
     </div>
 );
 }
-function SideBarItem({title='',functionList=[]}){
+export function SideBarItem({title='',functionList=[]}){
     let activeModule=sessionStorage.getItem('activeModule');
     const [isDown, setIsDown] = useState(sessionStorage.getItem(title)==='false'?false:true);
     function setModuleActive(e,link){

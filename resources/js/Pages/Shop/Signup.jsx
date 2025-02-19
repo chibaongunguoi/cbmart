@@ -1,12 +1,10 @@
 import React from "react";
-import Layout from "../Layout/Layout";
-import ShopInfo from "../../../../views/UI/ShopInfo";
-import ProductCardList from "../../../../views/UI/ProductCardList";
-import Pagination from "../../../../views/UI/Pagination";
-import AuthForm,{AuthTextInput} from "../../../../views/UI/AuthForm";
-import { asset, csrf } from "../../../helper/helper";
-import "../../../../../resources/css/Shop.css";
-
+import Layout from "../Home/Layout/Layout";
+import ShopInfo from "../../../views/UI/ShopInfo";
+import ProductCardList from "../../../views/UI/ProductCardList";
+import Pagination from "../../../views/UI/Pagination";
+import AuthForm,{AuthTextInput} from "../../../views/UI/AuthForm";
+import { asset, csrf } from "../../helper/helper";
 export default function Home(){
   return (
  <Layout>

@@ -17,12 +17,12 @@ class ShopController extends Controller implements HasMiddleware
     {
         return [
             CheckLogin::class,
-            new Middleware(CheckHadShop::class, except: ['signup'])
+            new Middleware(CheckHadShop::class, except: ['signup', 'store'])
         ];
     }
     function signup()
     {
-        return Inertia::render('Home/Shop/Signup');
+        return Inertia::render('Shop/Signup');
     }
     function store(Request $request)
     {
@@ -49,6 +49,6 @@ class ShopController extends Controller implements HasMiddleware
     }
     function home()
     {
-        return Inertia::render('Home/Shop/Home');
+        return Inertia::render('Shop/Home');
     }
 }

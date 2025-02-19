@@ -11,6 +11,9 @@ export let route = (link='')=>{
 export let routeWithFullURL = (link='')=>{
     return window.location.href+link;
 };
+export let asset = (link='')=>{
+    return APP_URL+'public/'+link;
+};
 export function changeAttr(attrValue){
     let url=new URL(window.location.href);
     for (let x in attrValue)

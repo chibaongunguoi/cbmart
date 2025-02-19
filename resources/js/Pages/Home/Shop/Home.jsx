@@ -9,25 +9,7 @@ import "../../../../../resources/css/Shop.css";
 export default function Home(){
   return (
  <Layout>
-    <div className="shop-wrapper">
-      <div className="shop-info-wrapper container">
-      <AuthForm >
-        <div className="shop-intro">
-          <img src="public/img/Home/Shop/shop_icon.png" alt="" />
-        </div>
-        <div className="auth-title"> 
-        Chào mừng bạn đến với kênh người bán!
-        </div>
-        <div className="shop-form-text"> 
-          Xin hãy nhập tên thương hiệu của bạn để bắt đầu bán hàng trên CBSHOP.
-        </div> 
-        <AuthTextInput name={"name"} title={"Tên thương hiệu"} />
-        <button className="auth-button">
-        Bắt đầu bán hàng
-      </button>
-      </AuthForm>
-      </div>
-    </div>
+    <h1> Đây là trang cửa hàng của bạn</h1>
   </Layout>);
 }
  

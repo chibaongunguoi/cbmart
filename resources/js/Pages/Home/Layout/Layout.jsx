@@ -3,8 +3,7 @@ import { usePage } from '@inertiajs/react';
 import Notification from "../../../../views/UI/Notification";
 import "../../../../../resources/css/HomeLayout.css";
 import { useState,useRef } from "react";
-import { route } from "../../../helper/helper";
-import { csrf } from "../../../helper/helper";
+import { route,csrf,asset } from "../../../helper/helper";
 export default function Layout({children}){
   return (
     <>
@@ -44,7 +43,7 @@ function Footer(){
               </li>
               <li className="footer-contact-wrapper">
                 <a href="" className="footer-contact-li">
-                  <img class="footer-contact-icon" src="public/img/Home/Home/phone_icon1.png"/>
+                  <img class="footer-contact-icon" src={asset("img/Home/Home/phone_icon1.png")}/>
                   <span class="footer-contact-desc phone-number">0967430257</span>
                 </a>
               </li>
@@ -57,7 +56,7 @@ function Footer(){
             </div>
             <ul className="footer-content-card-payment">
               <li className="footer-payment-wrapper">
-                <img className="payment-icon" src="public/img/Home/Home/momo_logo.png" alt="" />
+                <img className="payment-icon" src={asset('img/Home/Home/momo_logo.png')} alt="" />
               </li>   
           </ul>  
         </div>

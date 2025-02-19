@@ -1,127 +1,45 @@
 import React from "react";
+import { useState } from "react";
 import { route } from "../../../helper/helper";
 export default function SideBar(){
+    
     return (<div id="sidebar" class="bg-white">
         <ul id="sidebar-menu">
-            <li class="nav-link {{$module_active=='dashboard'?'active':''}}">
-                <a href="/admin">
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    Dashboard
-                </a>
-                <i class="arrow fas fa-angle-right"></i>
-            </li>
-            <li class="nav-link {{$module_active=='page'?'active':''}}">
-                <a href="/page/list">
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    Trang
-                </a>
-                <i class="arrow fas fa-angle-right"></i>
-
-                <ul class="sub-menu">
-                    <li><a href={route('admin/page/add')}>Thêm mới</a></li>
-                    <li><a href={route('admin/page/list')}>Danh sách</a></li>
-                </ul>
-            </li>
-            <li class="nav-https://www.youtube.com/watch?v=5nY291EPBFAlink {{$module_active=='post'?'active':''}}">
-                <a href={route('admin/post/list')}>
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    Bài viết
-                </a>
-                <i class="arrow fas fa-angle-right"></i>
-                <ul class="sub-menu">
-                    <li><a href={route('admin/post/add')}>Thêm mới</a></li>
-                    <li><a href={route('admin/post/list')}>Danh sách</a></li>
-                    <li><a href={route('admin/post/cat/add')}>Danh mục</a></li>
-                </ul>
-            </li>
-            <li class="nav-link {{$module_active=='product'?'active':''}}">
-                <a href={route('admin/product/list')}>
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    Sản phẩm
-                </a>
-                <i class="arrow fas fa-angle-down"></i>
-                <ul class="sub-menu">
-                    <li><a href={route('admin/product/add')}>Thêm mới</a></li>
-                    <li><a href={route('admin/product/list')}>Danh sách</a></li>
-                    <li><a href={route('admin/product/cat/list')}>Danh mục</a></li>
-                </ul>
-            </li>
-            <li class="nav-link {{$module_active=='order'?'active':''}}">
-                <a href={route('admin/order/list')}>
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    Bán hàng
-                </a>
-                <i class="arrow fas fa-angle-right"></i>
-                <ul class="sub-menu">
-                    <li><a href={route('admin/order/list')}>Đơn hàng</a></li>
-                </ul>
-            </li>
-            <li class="nav-link {{$module_active=='manager'?'active':''}}">
-                <a href={route("admin/manager/list?type=active")}>
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    managers
-                </a>
-                <i class="arrow fas fa-angle-right"></i>
-                <ul class="sub-menu">
-                    <li><a href={route('admin/manager/add')}>Thêm mới</a></li>
-                    <li><a href={route('admin/manager/list')}>Danh sách</a></li>
-                </ul>
-            </li>
-            <li class="nav-link {{$module_active=='user'?'active':''}}">
-                <a href={route("admin/user/list?type=active")}>
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    Users
-                </a>
-                <i class="arrow fas fa-angle-right"></i>
-                <ul class="sub-menu">
-                    <li><a href={route('admin/user/add')}>Thêm mới</a></li>
-                    <li><a href={route('admin/user/list')}>Danh sách</a></li>
-                </ul>
-            </li>
-       
-            <li class="nav-link {{$module_active=='permission'?'active':''}}">
-                <a href={route('admin/permission/add')}>
-                    <div class="nav-link-icon d-inline-flex">
-                        <i class="far fa-folder"></i>
-                    </div>
-                    Phân quyền
-                </a>
-                <i class="arrow fas fa-angle-right"></i>
-                <ul class="sub-menu">
-                    <li><a href={route('admin/permission/add')}>Quyền</a></li>
-                    <li><a href={route('admin/role/add')}>Thêm vai trò</a></li>
-                    <li><a href={route('admin/role/list')}>Danh sách vai trò</a></li>
-                </ul>
-            </li>
-   
-
-            {/* <!-- <li class="nav-link"><a>Bài viết</a>
-                <ul class="sub-menu">
-                    <li><a>Thêm mới</a></li>
-                    <li><a>Danh sách</a></li>
-                    <li><a>Thêm danh mục</a></li>
-                    <li><a>Danh sách danh mục</a></li>
-                </ul>
-            </li>
-            <li class="nav-link"><a>Sản phẩm</a></li>
-            <li class="nav-link"><a>Đơn hàng</a></li>
-            <li class="nav-link"><a>Hệ thống</a></li> --> */}
-
+            <SideBarItem title="Bảng Điều Khiển" functionList={[{'name':'trang chủ','link':'admin'}]} />
+            <SideBarItem title="Trang" functionList={[{'name':'thêm mới','link':'admin/page/add'}]} />
+            <SideBarItem title="Managers" functionList={[{'name':'thêm mới','link':'admin/manager/add'},{'name':'danh sách','link':'admin/manager/list'}]} />
+            <SideBarItem title="Users" functionList={[{'name':'thêm mới','link':'admin/user/add'},{'name':'danh sách','link':'admin/user/list'}]} />
+            <SideBarItem title="Phân Quyền" functionList={[{'name':'quyền','link':'admin/permission/add'},{'name':'thêm vai trò','link':'admin/role/add'},{'name':'danh sách vai trò','link':'admin/role/list'}]} />
         </ul>
     </div>
 );
+}
+function SideBarItem({title='',functionList=[]}){
+    let activeModule=sessionStorage.getItem('activeModule');
+    const [isDown, setIsDown] = useState(sessionStorage.getItem(title)==='false'?false:true);
+    function setModuleActive(e,link){
+        e.preventDefault();
+        sessionStorage.setItem('activeModule', link);
+        window.location.href=route(link);
+    }
+    function toggleMenu(){
+        sessionStorage.setItem(title, !isDown);
+        setIsDown(!isDown);
+    };
+    return (
+        <li class="nav-link">
+                <div className="sidebar-link-title" >
+                    <div class="nav-link-icon d-inline-flex">
+                        <i class="far fa-folder"></i>
+                    </div>
+                    {title}
+                </div>
+                <i class={`arrow fas ${isDown ? "fa-angle-down" : "fa-angle-right"}`} onClick={() => toggleMenu()}></i>
+                <ul class="sub-menu"style={{ display: isDown ? "block" : "none" }}>
+                    {functionList.map((item)=>{
+                        return (<li className={item.link==activeModule?"active":""} key={item.name} onClick={(e)=>{setModuleActive(e,item.link)}}><a href={route(item.link)}>{item.name}</a></li>);
+                    })}
+                </ul>
+            </li>
+    );
 }

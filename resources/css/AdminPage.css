@@ -1,12 +1,18 @@
 
-/* a:hover {
-    color: #0061f2;
-} */
+.active a{
+    color: #0061f2 ;
+}
 a {
     color: #787272;
     text-decoration: none !important;
 }
-
+.sidebar-link-title{
+    color: #787272;
+    display: inline;
+}
+.nav-link-icon{
+    margin-right: 5px;
+}
 .topnav .navbar-brand {
     width: 15rem;
     padding-left: 1rem;
@@ -110,6 +116,8 @@ ul#sidebar-menu * {
     border-left: 1px dashed #b8b8b8;
     margin-left: 6px;
     display: none;
+    text-transform: capitalize;
+    
 }
 
 #sidebar-menu .sub-menu li a {

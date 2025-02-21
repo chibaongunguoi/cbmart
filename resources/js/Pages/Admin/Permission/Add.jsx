@@ -101,6 +101,7 @@ return (<div class="col-8">
                                         </td>
                                     </tr>);
                                 })}
+                                
                             </>
                             );
                         })}

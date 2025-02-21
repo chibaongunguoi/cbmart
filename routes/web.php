@@ -11,7 +11,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminUserController;
-
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -73,6 +73,13 @@ Route::get('/admin/role/edit', [RoleController::class, 'edit']);
 Route::post('/admin/role/update', [RoleController::class, 'update']);
 Route::get('/admin/role/delete', [RoleController::class, 'delete']);
 Route::get('/admin/role/list', [RoleController::class, 'list']);
+
+Route::get('/admin/category/add', [CategoryController::class, 'add']);
+Route::post('/admin/category/store', [CategoryController::class, 'store']);
+Route::get('/admin/category/edit', [CategoryController::class, 'edit']);
+Route::post('/admin/category/update', [CategoryController::class, 'update']);
+Route::get('/admin/category/delete', [CategoryController::class, 'delete']);
+Route::get('/admin/category/list', [CategoryController::class, 'list']);
 
 Route::get('/product', [ProductController::class, 'index']);
 Route::get('/product/list', [ProductController::class, 'list']);

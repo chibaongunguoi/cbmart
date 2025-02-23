@@ -3,22 +3,27 @@ import Layout from "../Layout/Layout";
 import { route,csrf } from "../../../helper/helper";
 import {router, usePage } from "@inertiajs/react";
 import { useState,useEffect } from "react";
+import PopUp from "../../../../views/UI/CategoryPopup";
 import Notification from "../Ui/Notification";
 export default function Home({categories,status}){
-    
+   
   return (
  <Layout>
     <div id="content" class="container-fluid">
     <div class="row">
     {status?<Notification>{status}</Notification>:""}
-  <CategoryAdd />
+  <CategoryAdd categories={categories}/>
   <CategoryList categories={categories} />
   </div>
     </div>
   </Layout>);
 }
-function CategoryAdd(){
-    const { errors } = usePage().props
+function CategoryAdd({categories}){
+    const { errors } = usePage().props;
+    const [showPopup, setShowPopup] = useState(false);
+    const togglePopUp = () => {
+      setShowPopup(!showPopup);
+    };
     let [form ,setForm]=useState({
         'name':"",
         'parent_id':"",
@@ -44,10 +49,10 @@ function CategoryAdd(){
                                 <input class="form-control" type="text" name="name"  />
                                 {errors.name && <small className="text-danger">{errors.name}</small>}
                             </div>
-                            <div class="form-group">
+                            <div className="form-group App">
                                 <label for="slug">Danh mục cha</label>
-                                <input class="form-control" type="text" name="parent_id" />
-                                {errors.slug && <small className="text-danger">{errors.slug}</small>}
+                                <button className="form-control" onClick={togglePopUp}>Open Pop-Up</button>
+                                <PopUp handleClose={togglePopUp} show={showPopup} categories={categories} />
                             </div>
                             <button type="submit" class="btn btn-primary" name='btn_add' value="add">Thêm mới</button>
                         </form>

@@ -54,6 +54,11 @@ a {
     top: 0px;
     left: 0;
 }
+@media (max-width: 1000px) {
+    #sidebar {
+      display: none;
+    }
+  }
 
 #wp-content {
     flex: auto;

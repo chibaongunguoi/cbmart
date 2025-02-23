@@ -21,6 +21,7 @@ export default function Home({categories,status}){
 function CategoryAdd({categories}){
     const { errors } = usePage().props;
     const [showPopup, setShowPopup] = useState(false);
+    const [bc, setBc] = useState('a');
     const togglePopUp = () => {
       setShowPopup(!showPopup);
     };
@@ -51,8 +52,8 @@ function CategoryAdd({categories}){
                             </div>
                             <div className="form-group App">
                                 <label for="slug">Danh mục cha</label>
-                                <button className="form-control" onClick={togglePopUp}>Open Pop-Up</button>
-                                <PopUp handleClose={togglePopUp} show={showPopup} categories={categories} />
+                                <button className="form-control cat-btn" onClick={togglePopUp}>{bc}</button>
+                                <PopUp setBc={setBc} handleClose={togglePopUp} show={showPopup} categories={categories} />
                             </div>
                             <button type="submit" class="btn btn-primary" name='btn_add' value="add">Thêm mới</button>
                         </form>

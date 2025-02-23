@@ -3,12 +3,19 @@ import { useState } from "react";
 import { haveCatChild } from "../../js/helper/category";
 import "./a.css";
 
-const PopUp = ({ handleClose, show,categories }) => {
+const PopUp = ({ handleClose, show,categories,setBc }) => {
   let [catChosenList,setCatChosenList]=useState([null]);
+  let bc='';
   function handleCatClick(level,value){
       let newarray=catChosenList.slice(0,level);
       newarray[level]=value;
       return setCatChosenList(newarray);
+  }
+  function handleConfirm(e,bc){
+    e.preventDefault();
+    console.log(bc);
+    setBc(bc);
+    handleClose();
   }
   return (
     <div className={`popup ${show ? "show" : ""}`}>
@@ -33,8 +40,8 @@ const PopUp = ({ handleClose, show,categories }) => {
           </div>
         </div>
         <div className="popup-footer">
-          <CatBreadCrumb catChosenList={catChosenList} categories={categories}/>
-          <button className="btn cat-confirm">
+          <CatBreadCrumb catChosenList={catChosenList} categories={categories} bc={bc}/>
+          <button className="btn cat-confirm" onClick={(e)=>{handleConfirm(e,bc)}}bc={bc}>
                   <span>
                     Xác nhận
                   </span>                      
@@ -44,27 +51,25 @@ const PopUp = ({ handleClose, show,categories }) => {
     </div>
   );
 };
-function CatBreadCrumb({catChosenList,categories}){
-  function renderBC(id){
+function CatBreadCrumb({catChosenList,categories,bc}){
+  function renderBCitem(id){
       if (id!=null){
           let cat=categories.find(cat=>cat.id==id);
-          console.log(cat);
-          return (
-            <div className="cat-breadcrumb-item">
-            <div className="cat-breadcrumb"> {cat.name} </div>
-             {id==catChosenList[catChosenList.length-1]?'':<div className="bc-arrow">
-              &gt;
-            </div> }
-          </div>
-          );
+          if (id!=catChosenList[catChosenList.length-1])
+            return bc+=" "+cat.name+" >";
+          else return bc+=" "+cat.name;
       }
-      return (<></>);
+  }
+  function renderBC(){
+    catChosenList.map((id)=>{renderBCitem(id)});
+    return bc;
   }
 return (
   <div className="breadcrumb-wrapper">
-          Đã Chọn: 
-          
-          {catChosenList.map((id)=>{return renderBC(id)})}
+          Đã Chọn:            
+          <div className="cat-breadcrumb-item">
+           {renderBC()}       
+          </div>
           </div>
 );
 }

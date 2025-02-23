@@ -96,6 +96,7 @@
   justify-content: space-between;
 }
 .breadcrumb-wrapper{
+  font-size: 16px;
   display: flex;
   text-align: center;
   margin-bottom: 0px;
@@ -112,7 +113,7 @@
   margin-left: 7px;
   
 }
-.cat-confirm{
+.popup-btn{
   background: #ee4d2d;
   color: #fff;
   outline: 0;
@@ -120,7 +121,19 @@
   position: relative;
   height: 100%;
 }
-.cat-confirm:hover{
-  background: #f05d40;
+.popup-btn:hover{
   color: white;
+}
+.cat-notexist-btn{
+  background: #74b9ff ;
+  margin-right: 10px;
+}
+.cat-notexist-btn:hover{
+  background: #74b9ff ;
+}
+.cat-confirm:hover{
+  background: #ee4d2d ;
+}
+.cat-active{
+  color:#ee4d2d;
 }

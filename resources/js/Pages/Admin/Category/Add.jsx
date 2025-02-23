@@ -6,7 +6,6 @@ import { useState,useEffect } from "react";
 import PopUp from "../../../../views/UI/CategoryPopup";
 import Notification from "../Ui/Notification";
 export default function Home({categories,status}){
-   
   return (
  <Layout>
     <div id="content" class="container-fluid">
@@ -21,8 +20,8 @@ export default function Home({categories,status}){
 function CategoryAdd({categories}){
     const { errors } = usePage().props;
     const [showPopup, setShowPopup] = useState(false);
-    const [bc, setBc] = useState('a');
-    const togglePopUp = () => {
+    const [bc, setBc] = useState('Chọn danh mục cha');
+    function togglePopUp(){
       setShowPopup(!showPopup);
     };
     let [form ,setForm]=useState({
@@ -34,7 +33,21 @@ function CategoryAdd({categories}){
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.post(route("admin/category/store"), form);
+        router.post(route("admin/category/add"), form,{
+            onSuccess: () => {
+              setForm({
+                'name':"",
+                'parent_id':"",
+            });
+            setBc('Chọn danh mục cha');
+            },
+          });
+      }
+      function handleConfirm(e,bc,value){
+        e.preventDefault();
+        setBc(bc);
+        setForm({...form,'parent_id':value});
+        togglePopUp();
       }
     return(
         <>
@@ -44,16 +57,19 @@ function CategoryAdd({categories}){
                         Thêm Danh Mục
                     </div>
                     <div class="card-body">
-                        <form onSubmit={handleSubmit} onChange={handleChange} method='POST'>
+                        <form 
+                        onSubmit={handleSubmit}
+                         onChange={handleChange} method='POST'>
+                            {csrf}
                             <div class="form-group">
                                 <label for="name">Tên danh mục</label>
-                                <input class="form-control" type="text" name="name"  />
+                                <input class="form-control" type="text" name="name"value={form.name} />
                                 {errors.name && <small className="text-danger">{errors.name}</small>}
                             </div>
                             <div className="form-group App">
-                                <label for="slug">Danh mục cha</label>
-                                <button className="form-control cat-btn" onClick={togglePopUp}>{bc}</button>
-                                <PopUp setBc={setBc} handleClose={togglePopUp} show={showPopup} categories={categories} />
+                                <label for="slug">Danh mục cha</label>                          
+                                <div className="form-control cat-btn" onClick={togglePopUp} >{bc}</div>
+                                <PopUp handleConfirm={handleConfirm} handleClose={togglePopUp} show={showPopup} categories={categories} />
                             </div>
                             <button type="submit" class="btn btn-primary" name='btn_add' value="add">Thêm mới</button>
                         </form>

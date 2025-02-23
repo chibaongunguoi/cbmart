@@ -9,7 +9,8 @@ export default function Home({permissions,status}){
  <Layout>
     <div id="content" class="container-fluid">
     <div class="row">
-    {status?<Notification>{status}</Notification>:""}
+    {status?<Notification>{status}</Notification>:null}
+    
   <PermissionAdd />
   <PerrmissionsList permissions={permissions} />
   </div>
@@ -28,7 +29,15 @@ function PermissionAdd(){
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.post(route("admin/permission/store"), form);
+        router.post(route("admin/permission/add"),form,{
+            onSuccess: () => {
+              setForm({
+                'name':"",
+                'slug':"",
+                'description':"",
+            });
+            },
+          });
       }
     return(
         <>
@@ -38,21 +47,23 @@ function PermissionAdd(){
                         Thêm quyền
                     </div>
                     <div class="card-body">
-                        <form onSubmit={handleSubmit} onChange={handleChange} method='POST'>
+                        <form 
+                        onSubmit={handleSubmit}
+                         onChange={handleChange} method='POST'>
                             <div class="form-group">
                                 <label for="name">Tên quyền</label>
-                                <input class="form-control" type="text" name="name" id="name" />
+                                <input class="form-control" type="text" name="name" id="name" value={form.name}/>
                                 {errors.name && <small className="text-danger">{errors.name}</small>}
                             </div>
                             <div class="form-group">
                                 <label for="slug">Slug</label>
                                 <small class="form-text text-muted pb-2"> Ví dụ: posts.add</small>
-                                <input class="form-control" type="text" name="slug" id="slug"/>
+                                <input class="form-control" type="text" name="slug" id="slug"value={form.slug}/>
                                 {errors.slug && <small className="text-danger">{errors.slug}</small>}
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả</label>
-                                <textarea class="form-control" type="text" name="description" id="description"> </textarea>
+                                <textarea class="form-control" type="text" name="description" id="description" value={form.description}> </textarea>
                                 {errors.description && <small className="text-danger">{errors.description}</small>}
                             </div>
                             <button type="submit" class="btn btn-primary" name='btn_add' value="add">Thêm mới</button>

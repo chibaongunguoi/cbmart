@@ -164,4 +164,5 @@ ul#sidebar-menu * {
 }
 .cat-btn{
     text-align: left ;
+    cursor: pointer;
 }

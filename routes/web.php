@@ -61,7 +61,7 @@ Route::get('/admin/manager/action', [ManagerController::class, 'action']);
 
 
 Route::get('/admin/permission/add', [PermissionController::class, 'add']);
-Route::post('/admin/permission/store', [PermissionController::class, 'store']);
+Route::post('/admin/permission/add', [PermissionController::class, 'store']);
 Route::get('/admin/permission/edit', [PermissionController::class, 'edit']);
 Route::post('/admin/permission/update', [PermissionController::class, 'update']);
 Route::get('/admin/permission/delete', [PermissionController::class, 'delete']);
@@ -75,7 +75,7 @@ Route::get('/admin/role/delete', [RoleController::class, 'delete']);
 Route::get('/admin/role/list', [RoleController::class, 'list']);
 
 Route::get('/admin/category/add', [CategoryController::class, 'add']);
-Route::post('/admin/category/store', [CategoryController::class, 'store']);
+Route::post('/admin/category/add', [CategoryController::class, 'store']);
 Route::get('/admin/category/edit', [CategoryController::class, 'edit']);
 Route::post('/admin/category/update', [CategoryController::class, 'update']);
 Route::get('/admin/category/delete', [CategoryController::class, 'delete']);

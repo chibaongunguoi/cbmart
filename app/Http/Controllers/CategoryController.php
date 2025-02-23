@@ -53,6 +53,7 @@ class CategoryController extends Controller
             'slug' => 'Slug',
             'description' => 'Mô tả'
         ]);
+
         return redirect("admin/category/add")->with('status', 'Cập nhập danh mục thành công');
     }
     function delete(Request $request)

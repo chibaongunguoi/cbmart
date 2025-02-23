@@ -1,28 +1,32 @@
 import React from "react";
-import { useState } from "react";
-import { haveCatChild } from "../../js/helper/category";
+import { useState,useEffect } from "react";
+import { haveCatChild,isActive } from "../../js/helper/category";
 import "./a.css";
 
-const PopUp = ({ handleClose, show,categories,setBc }) => {
+export default function PopUp ({handleConfirm, handleClose, show,categories }){
   let [catChosenList,setCatChosenList]=useState([null]);
   let bc='';
+  function renderBCitem(id){
+    if (id!=null){
+        let cat=categories.find(cat=>cat.id==id);
+        if (id!=catChosenList[catChosenList.length-1])
+          return bc+=" "+cat.name+" >";
+        else return bc+=" "+cat.name;
+    }
+}
+    catChosenList.map((id)=>{renderBCitem(id)}); 
   function handleCatClick(level,value){
       let newarray=catChosenList.slice(0,level);
       newarray[level]=value;
       return setCatChosenList(newarray);
   }
-  function handleConfirm(e,bc){
-    e.preventDefault();
-    console.log(bc);
-    setBc(bc);
-    handleClose();
-  }
+  
   return (
     <div className={`popup ${show ? "show" : ""}`}>
       <div className="popup-content">
         <div className="popup-title-wrapper">
           <div className="popup-title">
-            Chọn danh mục   
+            Chọn danh mục cha   
           </div>
           <span className="close" onClick={handleClose}>&times;</span>
         </div>
@@ -41,34 +45,30 @@ const PopUp = ({ handleClose, show,categories,setBc }) => {
         </div>
         <div className="popup-footer">
           <CatBreadCrumb catChosenList={catChosenList} categories={categories} bc={bc}/>
-          <button className="btn cat-confirm" onClick={(e)=>{handleConfirm(e,bc)}}bc={bc}>
+          <div className="btn-group">
+
+          <button className="btn popup-btn cat-notexist-btn" onClick={(e)=>{handleConfirm(e,'Không có danh mục cha',null)}}bc={bc}>
+                  <span>
+                    Không có danh mục cha
+                  </span>                      
+          </button>
+          <button className="btn popup-btn cat-confirm" onClick={(e)=>{handleConfirm(e,bc,catChosenList[catChosenList.length-1])}}bc={bc}>
                   <span>
                     Xác nhận
                   </span>                      
-                </button>
+          </button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 function CatBreadCrumb({catChosenList,categories,bc}){
-  function renderBCitem(id){
-      if (id!=null){
-          let cat=categories.find(cat=>cat.id==id);
-          if (id!=catChosenList[catChosenList.length-1])
-            return bc+=" "+cat.name+" >";
-          else return bc+=" "+cat.name;
-      }
-  }
-  function renderBC(){
-    catChosenList.map((id)=>{renderBCitem(id)});
-    return bc;
-  }
 return (
   <div className="breadcrumb-wrapper">
           Đã Chọn:            
           <div className="cat-breadcrumb-item">
-           {renderBC()}       
+           {bc}       
           </div>
           </div>
 );
@@ -78,7 +78,7 @@ function CatTabbleCell({catChosenList,categories,handleCatClick}){
     let a=[];
     let c=categories.filter(cat=>cat.parent_id==value)
     if (c.length>0){
-      c.map((cat)=>{a.push(<CatItem hasChild={haveCatChild(categories,cat.id)} cat={cat} level={level} handleCatClick={handleCatClick}/>);})  
+      c.map((cat)=>{a.push(<CatItem isActive={isActive(catChosenList,cat.id)} hasChild={haveCatChild(categories,cat.id)} cat={cat} level={level} handleCatClick={handleCatClick}/>);})  
     return (<div className="cat-tabble-cell">
       {a}
       </div>)
@@ -90,9 +90,9 @@ function CatTabbleCell({catChosenList,categories,handleCatClick}){
     </>
   );
 }
-function CatItem({hasChild,cat,level,handleCatClick}){
+function CatItem({isActive,hasChild,cat,level,handleCatClick}){
   return (
-    <div className="cat-line" onClick={()=>{handleCatClick(level,cat.id)}} >
+    <div className={`cat-line ${isActive?"cat-active":""}`} onClick={()=>{handleCatClick(level,cat.id)}} >
              <div className="cat-name">
              {cat.name}
               </div> 
@@ -100,4 +100,3 @@ function CatItem({hasChild,cat,level,handleCatClick}){
         </div>
   );
 }
-export default PopUp;

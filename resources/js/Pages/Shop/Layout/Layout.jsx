@@ -1,4 +1,5 @@
 import React from "react";
+import "./../../../../css/ShopPage.css"
 import SideBar,{SideBarItem} from "../../../../views/UI/SideBar";
 export default function Layout({children}){
   return (

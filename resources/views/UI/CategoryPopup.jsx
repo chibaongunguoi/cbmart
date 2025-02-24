@@ -1,7 +1,7 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import { haveCatChild,isActive } from "../../js/helper/category";
-import "./a.css";
+import "../../css/catPopup.css"
 
 export default function PopUp ({handleConfirm, handleClose, show,categories }){
   let [catChosenList,setCatChosenList]=useState([null]);

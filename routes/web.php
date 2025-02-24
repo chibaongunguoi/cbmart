@@ -88,6 +88,8 @@ Route::get('/cart', [CartController::class, 'index']);
 
 Route::get('/seller', [UserController::class, 'seller']);
 
+Route::get('/shop', [ShopController::class, 'home']);
 Route::get('/shop/signup', [ShopController::class, 'signup']);
 Route::post('/shop/signup', [ShopController::class, 'store']);
-Route::get('/shop', [ShopController::class, 'home']);
+Route::get('/shop/product/add', [ShopController::class, 'productAdd']);
+Route::post('/shop/product/add', [ShopController::class, 'store']);

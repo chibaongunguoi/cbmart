@@ -51,4 +51,8 @@ class ShopController extends Controller implements HasMiddleware
     {
         return Inertia::render('Shop/Home');
     }
+    function productAdd()
+    {
+        return Inertia::render('Shop/Product/Add');
+    }
 }

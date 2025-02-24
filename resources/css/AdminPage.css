@@ -48,17 +48,17 @@ a {
 #sidebar {
     width: 15rem;
     height: 100vh;
-    z-index: 500;
+    z-index: 1;
     padding-top: 3.625rem;
     position: fixed;
     top: 0px;
     left: 0;
 }
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
     #sidebar {
       display: none;
     }
-  }
+  } */
 
 #wp-content {
     flex: auto;

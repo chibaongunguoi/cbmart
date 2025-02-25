@@ -29,13 +29,10 @@
 }
 .auth-input-wrapper{
     max-height: 100%;
-    max-width: 100%;
     font-size: 17px;
     width: 100%;
     position: relative;
     margin-top: 24px;
-
-    /* text-transform: capitalize; */
 }
 .auth-input{
     background: 0 0;

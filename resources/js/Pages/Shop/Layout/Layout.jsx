@@ -9,7 +9,7 @@ export default function Layout({children}){
     <div id="page-body" class="d-flex">
       <ShopSideBar/>
       <div id="wp-content">
-      <div className="container-fluid py-5">
+      <div className="container-fluid ">
       {children}
       </div>
       </div>

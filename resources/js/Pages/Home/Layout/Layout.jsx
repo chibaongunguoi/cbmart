@@ -76,7 +76,6 @@ function Header(){
 }
 function HeaderTop(){
   const { auth } = usePage().props;
-  console.log(auth,1);
   let [notiDrop,setNotiDrop]=useState(false);
   let NotiDropDown=useRef(null);
 function NotiHandleClick(){

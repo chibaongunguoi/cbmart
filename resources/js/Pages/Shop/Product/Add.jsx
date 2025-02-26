@@ -1,7 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import Layout from "./../Layout/Layout";
-export default function Home(){
+export default function Home({categories}){
+  let [form,setForm]=useState({'thumbanil':"","name":"","cat_id":"","description":""});
+  const [showPopup, setShowPopup] = useState(false);
+  const [bc, setBc] = useState('Chọn danh mục cha');
+  function togglePopUp(){
+        setShowPopup(!showPopup);
+      };
+  function handleChange(e){
+    setForm({...form,[e.target.name]:e.target.value});
+  }  
+  function handleSubmit(e) {
+    e.preventDefault();
+    router.post(route("admin/role/store"), form);
+    }
   const [image, setImage] = useState(null);
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -22,24 +35,23 @@ export default function Home(){
               <div className="pt-add-label">
                 <label htmlFor="thumbnail-choose">Hình ảnh sản phẩm</label>
               </div>
-              <div className="pt-add-form-input">
-                <label htmlFor="">Thêm hình ảnh</label>
-                <input id="thumbnail-choose" onChange={handleImageUpload} type="file" class="custom-file-input" name="file" />
-
-              </div>
-              {image && <img src={image} alt="Uploaded" className="mt-4 w-64 h-64 object-cover rounded-lg shadow" />}
+              {image && <img src={image} alt="Uploaded" className="thumbnail-img choose-file-btn" />}
+              <label className="pt-add-form-input choose-file-btn" htmlFor="thumbnail-choose">{image?"Thay đổi hình ảnh":"Thêm hình ảnh"}</label>
+                <input id="thumbnail-choose" onChange={handleImageUpload} type="file" class="pt-add-form-input custom-file-input" name="file" />
             </div>
             <div className="pt-add-form-item">
               <div className="pt-add-label">
                 <label htmlFor="">Tên sản phẩm</label>
               </div>
-              <input className="pt-add-form-input" type="text" name="name" placeholder="Nhập vào" />
+              <input className="pt-add-form-input pt-name-input" onChange={handleChange} type="text" name="name" placeholder="Nhập vào" maxlength="150" />
+              <div className="text-count">{form.name.length}/150</div>
             </div>
             <div className="pt-add-form-item">
               <div className="pt-add-label">
                 <label htmlFor="">Danh mục</label>
               </div>
               <input className="pt-add-form-input" type="text" name="name" placeholder="Chọn danh mục" />
+              {/* <PopUp handleConfirm={handleConfirm} handleClose={togglePopUp} show={showPopup} categories={categories} /> */}
             </div>
             <div className="pt-add-form-item">
               <div className="pt-add-label">

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\CheckHadShop;
 use App\Models\Shop;
 use Inertia\Inertia;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Middleware\CheckLogin;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\CheckHadShop;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -53,6 +54,7 @@ class ShopController extends Controller implements HasMiddleware
     }
     function productAdd()
     {
-        return Inertia::render('Shop/Product/Add');
+        $categories = Category::all();
+        return Inertia::render('Shop/Product/Add', compact('categories'));
     }
 }

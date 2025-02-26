@@ -89,7 +89,6 @@
   display: flex;
   justify-content: space-between;
 }
-
 .popup-footer{
   margin-top: 20px;
   display: flex;
@@ -111,28 +110,10 @@
 }
 .bc-arrow{
   margin-left: 7px;
-  
-}
-.popup-btn{
-  background: #ee4d2d;
-  color: #fff;
-  outline: 0;
-  overflow: visible;
-  position: relative;
-  height: 100%;
-}
-.popup-btn:hover{
-  color: white;
 }
 .cat-notexist-btn{
-  background: #74b9ff ;
+  background: #74b9ff !important;
   margin-right: 10px;
-}
-.cat-notexist-btn:hover{
-  background: #74b9ff ;
-}
-.cat-confirm:hover{
-  background: #ee4d2d ;
 }
 .cat-active{
   color:#ee4d2d;

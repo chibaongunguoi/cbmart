@@ -47,12 +47,12 @@ export default function PopUp ({handleConfirm, handleClose, show,categories }){
           <CatBreadCrumb catChosenList={catChosenList} categories={categories} bc={bc}/>
           <div className="btn-group">
 
-          <button className="btn popup-btn cat-notexist-btn" onClick={(e)=>{handleConfirm(e,'Không có danh mục cha',null)}}bc={bc}>
+          <button className="hl-btn cat-notexist-btn" onClick={(e)=>{handleConfirm(e,'Không có danh mục cha',null)}}bc={bc}>
                   <span>
                     Không có danh mục cha
                   </span>                      
           </button>
-          <button className="btn popup-btn cat-confirm" onClick={(e)=>{handleConfirm(e,bc,catChosenList[catChosenList.length-1])}}bc={bc}>
+          <button className="hl-btn cat-confirm" onClick={(e)=>{handleConfirm(e,bc,catChosenList[catChosenList.length-1])}}bc={bc}>
                   <span>
                     Xác nhận
                   </span>                      

@@ -26,7 +26,7 @@ export default function PopUp ({handleConfirm, handleClose, show,categories }){
       <div className="popup-content">
         <div className="popup-title-wrapper">
           <div className="popup-title">
-            Chọn danh mục cha   
+            Chọn danh mục  
           </div>
           <span className="close" onClick={handleClose}>&times;</span>
         </div>

@@ -39,6 +39,7 @@
     font-weight: bold;
     color:#ee4d2d;
     margin-right: 10px;
+    cursor: pointer;
 }
 .thumbnail-img{
     padding: 0px;

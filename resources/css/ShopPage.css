@@ -25,7 +25,7 @@
     vertical-align: top;
 }
 .pt-add-form-input{
-    width: 77%;
+    width: 80%;
     border: 1px solid #cbced5;
     border-radius: 3px;
     padding: 8px;
@@ -71,7 +71,7 @@
     border-left:1px solid #cbced5 ;
     padding-left: 5px;
     position: absolute;
-    right:5%;
+    right:3%;
     transform: translateY(-50%);
     top:50%;
     color: gray;

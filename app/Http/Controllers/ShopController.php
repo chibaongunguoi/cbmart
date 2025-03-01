@@ -59,8 +59,20 @@ class ShopController extends Controller implements HasMiddleware
     }
     function productStore(Request $request)
     {
-        dd($request);
-        $categories = Category::all();
-        return Inertia::render('Shop/Product/Add', compact('categories'));
+        $request->validate([
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|dimensions:max_width=1080,max_height=1080|max:2048',
+            'name' => ['required', 'string', 'max:150'],
+            'cat_id' => "required",
+            'description' => 'required',
+        ], [
+            'required' => ':attribute không được để trống',
+            'min' => ':attribute có độ dài ít nhất :min ký tự',
+            'max' => ':attribute có độ dài tối đa :max ký tự',
+        ], [
+            'name' => 'Tên sản phẩm',
+            'cat_id' => 'Danh mục',
+            'description' => 'Mô tả sản phẩm',
+        ]);
+        return redirect('shop/product/list');
     }
 }

@@ -1,9 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Layout from "./../Layout/Layout";
 import PopUp from "../../../../views/UI/CategoryPopup";
+import { csrf, route,csrfToken } from "../../../helper/helper";
 export default function Home({categories}){
-  let [form,setForm]=useState({'thumbanil':"","name":"","cat_id":"","description":""});
+  let [form,setForm]=useState({'thumbnail':"","name":"","cat_id":"","description":""});
   const [showPopup, setShowPopup] = useState(false);
   const [bc, setBc] = useState('Chọn danh mục');
   const [file, setFile] = useState(null);
@@ -23,11 +24,31 @@ export default function Home({categories}){
       setForm({...form,'cat_id':value});
       togglePopUp();
     }
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    setFile(file);
-    
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setForm({...form,[e.target.name]:file});
+    let formdata=new FormData();
+    formdata.append('thumbnail',file);
+      $.ajax({
+          url :route("upload-image"),
+          method:"POST",
+          data:formdata,
+          processData: false,
+          contentType: false,
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-TOKEN',csrfToken);
+        },
+          success:function(data){
+              console.log(data);
+          },
+          error:function (xhr,ajaxOptions, throwError){
+              alert(xhr.status);
+              alert(throwError);
+          }
+      });
+
   };
+
   return (
  <Layout>
     <div className="pt-add-content-wrapper">
@@ -36,14 +57,15 @@ export default function Home({categories}){
           Thông tin cơ bản
         </div>
         <div className="pt-add-form">
-          <form action="" enctype="multipart/form-data">
+          <form id="pt-add" action="" enctype="multipart/form-data" method="POST">
+          {csrf}
             <div className="pt-add-form-item">
               <div className="pt-add-label">
                 <label htmlFor="thumbnail-choose">Hình ảnh sản phẩm</label>
               </div>
               {file && <img src={URL.createObjectURL(file)} alt="Uploaded" className="thumbnail-img choose-file-btn" />}
               <label className="pt-add-form-input choose-file-btn" htmlFor="thumbnail-choose">{file?"Thay đổi hình ảnh":"Thêm hình ảnh"}</label>
-                <input id="thumbnail-choose" onChange={handleImageUpload} type="file" class="pt-add-form-input custom-file-input" name="file" />
+                <input id="thumbnail-choose" onChange={handleImageUpload} type="file" class="pt-add-form-input custom-file-input" name="thumbnail" />               
                 {/* <div>{file?file.size:""}</div>
                 <div>{file?file.name.split(".").pop():""}</div>
                 {file?console.log(file):""} */}

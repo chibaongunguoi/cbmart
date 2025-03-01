@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/api.php';
 
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+Route::get('/a', [AuthController::class, 'login']);
 
 Route::get('/send_email_verify', [AuthController::class, 'sendEmailVerifyMail']);
 Route::get('/send_recover_password', [AuthController::class, 'sendRecoverPasswordMail']);
@@ -92,4 +94,4 @@ Route::get('/shop', [ShopController::class, 'home']);
 Route::get('/shop/signup', [ShopController::class, 'signup']);
 Route::post('/shop/signup', [ShopController::class, 'store']);
 Route::get('/shop/product/add', [ShopController::class, 'productAdd']);
-Route::post('/shop/product/add', [ShopController::class, 'store']);
+Route::post('/shop/product/add', [ShopController::class, 'productStore']);

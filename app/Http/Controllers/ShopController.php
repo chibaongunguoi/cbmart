@@ -57,4 +57,10 @@ class ShopController extends Controller implements HasMiddleware
         $categories = Category::all();
         return Inertia::render('Shop/Product/Add', compact('categories'));
     }
+    function productStore(Request $request)
+    {
+        dd($request);
+        $categories = Category::all();
+        return Inertia::render('Shop/Product/Add', compact('categories'));
+    }
 }

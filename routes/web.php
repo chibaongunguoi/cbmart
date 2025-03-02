@@ -95,3 +95,4 @@ Route::get('/shop/signup', [ShopController::class, 'signup']);
 Route::post('/shop/signup', [ShopController::class, 'store']);
 Route::get('/shop/product/add', [ShopController::class, 'productAdd']);
 Route::post('/shop/product/add', [ShopController::class, 'productStore']);
+Route::get('/shop/product/list', [ShopController::class, 'productList']);

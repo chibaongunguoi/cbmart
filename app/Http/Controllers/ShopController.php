@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Middleware\CheckLogin;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckHadShop;
+use App\Models\Product;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -54,6 +55,7 @@ class ShopController extends Controller implements HasMiddleware
     }
     function productAdd()
     {
+
         $categories = Category::all();
         return Inertia::render('Shop/Product/Add', compact('categories'));
     }
@@ -73,6 +75,23 @@ class ShopController extends Controller implements HasMiddleware
             'cat_id' => 'Danh mục',
             'description' => 'Mô tả sản phẩm',
         ]);
+        $product = $request->all();
+        $file = $request->thumbnail;
+        $filename = $file->getClientOriginalName();
+        $thumbnail = 'public/uploads/' . $filename;
+        $path = $file->move('public/img/products', $filename);
+        $product['thumbnail'] = $thumbnail;
+        $product['shop_id'] = session('shop')->id;
+        $product['price'] = 10000;
+        $product['discount'] = 0;
+        $product['quantity'] = 10;
+        $product['rating'] = 5;
+        $product['rating_count'] = 0;
+        Product::create($product);
         return redirect('shop/product/list');
+    }
+    function productList()
+    {
+        return Inertia::render('Shop/Home');
     }
 }

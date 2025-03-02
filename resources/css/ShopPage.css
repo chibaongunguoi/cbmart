@@ -13,6 +13,8 @@
 }
 .pt-add-form-item{
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 30px;
     position: relative;
 }
@@ -24,11 +26,19 @@
     padding-top: 6px;
     vertical-align: top;
 }
-.pt-add-form-input{
+.pt-add-input-wrapper{
     width: 80%;
+    position: relative;
+}
+.pt-add-form-input{  
+    width: 100%;
     border: 1px solid #cbced5;
     border-radius: 3px;
     padding: 8px;
+}
+.pt-add-error{
+    margin-top: 4px;
+    margin-left: 19%;
 }
 .choose-file-btn{
     width: 100px;

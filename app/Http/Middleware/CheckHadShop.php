@@ -17,8 +17,9 @@ class CheckHadShop
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Shop::where('user_id', Auth::id())->first()) {
-            // session(['shop'])
+        $shop = Shop::where('user_id', Auth::id())->first();
+        if ($shop) {
+            session(['shop' => $shop]);
             return $next($request);
         } else {
             return redirect('shop/signup');

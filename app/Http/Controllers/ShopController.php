@@ -66,6 +66,8 @@ class ShopController extends Controller implements HasMiddleware
             'name' => ['required', 'string', 'max:150'],
             'cat_id' => "required",
             'description' => 'required',
+            'price' => "required",
+            'quantity' => 'required',
         ], [
             'required' => ':attribute không được để trống',
             'min' => ':attribute có độ dài ít nhất :min ký tự',
@@ -82,9 +84,7 @@ class ShopController extends Controller implements HasMiddleware
         $path = $file->move('public/img/products', $filename);
         $product['thumbnail'] = $thumbnail;
         $product['shop_id'] = session('shop')->id;
-        $product['price'] = 10000;
         $product['discount'] = 0;
-        $product['quantity'] = 10;
         $product['rating'] = 5;
         $product['rating_count'] = 0;
         Product::create($product);
